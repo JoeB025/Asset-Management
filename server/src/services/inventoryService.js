@@ -5,11 +5,17 @@ const db = require("../database/db");
 const getAllInventory = () => {
   return new Promise((resolve, reject) => {
     const sql = `
-      SELECT 
-        i.*,
-        e.FirstName || ' ' || e.LastName AS AssignedEmployeeName
-      FROM Inventory i
-      LEFT JOIN Employees e ON i.AssignedEmployeeId = e.Id
+          SELECT
+            I.*,
+            AT.Name AS AssetTypeName,
+            E.FirstName || ' ' || E.LastName AS AssignedEmployeeName
+          FROM Inventory I
+          LEFT JOIN AssetTypes AT
+            ON I.AssetTypeId = AT.Id
+          LEFT JOIN Employees E
+            ON I.AssignedEmployeeId = E.Id
+          WHERE I.Status <> 'Deleted' 
+          ORDER BY I.AssetTag 
     `;
 
     db.all(sql, [], (err, rows) => {
@@ -24,13 +30,25 @@ const getAllInventory = () => {
 // Get Single Inventory Item by Id
 const getInventoryItemById = (id) => {
   return new Promise((resolve, reject) => {
-    const sql = `
-      SELECT * FROM Inventory Where Id = ?`
 
-      db.get(sql, [id], (err, rows) => {
-        if (err) return reject(err); 
-        resolve(rows); 
-      });
+    const sql = `
+      SELECT
+        I.*,
+        AT.Name AS AssetTypeName,
+        E.FirstName || ' ' || E.LastName AS AssignedEmployeeName
+      FROM Inventory I
+      LEFT JOIN AssetTypes AT
+        ON I.AssetTypeId = AT.Id
+      LEFT JOIN Employees E
+        ON I.AssignedEmployeeId = E.Id
+      WHERE I.Id = ?
+    `;
+    db.get(sql, [id], (err, row) => {
+      if (err) return reject(err);
+      resolve(row);
+
+    });
+
   });
 };
 
@@ -69,9 +87,6 @@ const createInventoryItem = (item) => {
     });
   });
 };
-
-
-
 
 
 
@@ -154,7 +169,7 @@ const addInventoryHistory = (data) => {
 };
 
 
-
+// Get Inventory History 
 const getInventoryHistory = (inventoryId) => {
   return new Promise((resolve, reject) => {
 
@@ -231,13 +246,17 @@ const updateInventoryItem = (id, data) => {
 
 
 
-// Delete Inventory Item 
+// Soft delete inventory item by setting Status = 'Deleted'
 const deleteInventoryItem = (id) => {
   return new Promise((resolve, reject) => {
 
     const sql = `
       UPDATE Inventory
-      SET Status = "Deleted"
+      SET
+        Status = "Deleted",
+        AssignedEmployeeId = NULL,
+        DateAssigned = NULL,
+        CurrentLocation = 'Retired'
       WHERE Id = ?
       `; 
 
@@ -274,6 +293,33 @@ const getAvailableInventoryByAssetTypeId = (id) => {
 };
 
 
+
+// Return to asset to storage 
+const returnInventoryItem = (id) => {
+  return new Promise((resolve, reject) => {
+
+    const sql = `
+      UPDATE Inventory
+      SET
+        AssignedEmployeeId = NULL,
+        DateAssigned = NULL,
+        CurrentLocation = 'Storage'
+      WHERE Id = ?
+      `; 
+
+      db.run(sql, [id], function(err) {
+        if (err) return reject(err);
+
+        resolve({
+          changes: this.changes
+        });
+      });
+  });
+};
+
+
+
+
 module.exports = {
   getAllInventory,
   getInventoryItemById,
@@ -284,5 +330,6 @@ module.exports = {
   updateInventoryItem,
   deleteInventoryItem,
   getAvailableInventory,
-  getAvailableInventoryByAssetTypeId
+  getAvailableInventoryByAssetTypeId,
+  returnInventoryItem
 };

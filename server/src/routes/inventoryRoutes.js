@@ -13,7 +13,8 @@ const {
   updateInventoryItem,
   deleteInventoryItem,
   getAvailableInventory,
-  getAvailableInventoryByAssetTypeId
+  getAvailableInventoryByAssetTypeId,
+  returnInventoryItem
  
 } = require("../services/inventoryService");
 
@@ -46,11 +47,7 @@ router.get("/available", authMiddleware, async (req, res) => {
 // Get Available Inventory By Asset Type Id 
 router.get("/available/:id", authMiddleware, async (req, res) => {
   try {
-    const assets = await getAvailableInventoryByAssetTypeId(req.params.id); 
-    console.log("-------------------------- Available ---------------------------------");
-    console.log(assets); 
-    console.log("-------------------------- Available ---------------------------------");
- 
+    const assets = await getAvailableInventoryByAssetTypeId(req.params.id);  
     res.json(assets)
   } catch (err) {
     res.status(500).json({ message: err.message }); 
@@ -124,6 +121,42 @@ router.get("/history", authMiddleware, async (req, res) => {
 
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+
+
+
+// Return asset to storage
+router.post("/return", authMiddleware, async (req, res) => {
+  try {
+
+    const user = req.user;
+
+    const result = await returnInventoryItem(
+      req.body.InventoryId
+    );
+
+    await addInventoryHistory({
+      InventoryId: req.body.InventoryId,
+      ActionType: "RETURNED_TO_STORAGE",
+      OldEmployeeId: req.body.EmployeeId,
+      NewEmployeeId: null,
+      Notes: req.body.Notes || "Returned to storage",
+      CreatedByLoginUserId: user.id
+    });
+
+    res.json({
+      message: "Asset returned to storage",
+      changes: result.changes
+    });
+
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message
+    });
+
   }
 });
 

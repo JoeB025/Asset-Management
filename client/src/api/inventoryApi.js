@@ -44,3 +44,8 @@ export const getAvailableInventoryByAssetType = async (id) => {
   const response = await api.get(`/inventory/available/${id}`); 
   return response.data 
 }
+
+export const returnInventoryItem = async (data) => {
+  const response = await api.post("/inventory/return", data )
+  return response.data 
+}

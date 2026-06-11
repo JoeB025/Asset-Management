@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import { getEmployeeById, getEmployeeAssets } from "../api/employeeApi";
+import { returnInventoryItem } from "../api/inventoryApi";
 import AssignAssetForm from "../components/employee/AssignAssetForm";
 
 export default function EmployeeDetails() {
@@ -17,6 +18,23 @@ export default function EmployeeDetails() {
     setEmployee(data);
     setAssets(assetData);
   };
+
+  // Return items to storage 
+  const handleReturnToStorage = async (inventoryId) => {
+
+  if (!window.confirm("Return this asset to storage?")) {
+    return;
+  }
+
+  await returnInventoryItem({
+    InventoryId: inventoryId,
+    EmployeeId: employee.Id,
+    Notes: "Returned from employee page"
+  });
+
+  await refreshData();
+
+};
 
   // 2. Run the effect when the ID changes
   useEffect(() => {
@@ -81,6 +99,7 @@ export default function EmployeeDetails() {
               <th>Status</th>
               <th>Condition</th>
               <th>Location</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -91,6 +110,14 @@ export default function EmployeeDetails() {
                 <td>{asset.Status}</td>
                 <td>{asset.Condition}</td>
                 <td>{asset.CurrentLocation}</td>
+                <td>
+                  <button onClick={() => handleReturnToStorage(asset.Id)}>
+                    Return To Storage
+                  </button>
+                  <button>
+                    Reassign 
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

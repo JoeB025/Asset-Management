@@ -7,6 +7,8 @@ import Employees from "../pages/Employees";
 import Inventory from "../pages/Inventory";
 import AssetTypes from "../pages/AssetTypes";
 import EmployeeDetails from "../pages/EmployeeDetails";
+import InventoryDetails from "../pages/InventoryDetails"; 
+// import BrokenAssets from "../pages/BrokenAssets"; 
 
 export default function AppRoutes() {
   return (
@@ -67,6 +69,27 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+
+      <Route
+        path="/inventory/:id"
+        element={
+          <ProtectedRoute>
+            <InventoryDetails />
+          </ProtectedRoute>
+      }
+      />
+
+
+
+      {/* <Route
+        path="/brokenAssets"
+        element={
+          <ProtectedRoute>
+            <BrokenAssets />
+          </ProtectedRoute>
+      }
+      /> */}
 
     </Routes>
   );
