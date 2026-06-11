@@ -8,7 +8,8 @@ const {
   createAssetType,
   deleteAssetType,
   updateAssetType,
-  getAssetTypeByTypeId
+  getAssetTypeByTypeId,
+  canDeleteAssetType
 } = require("../services/assetTypeService");
 
 
@@ -38,20 +39,30 @@ router.post("/", authMiddleware, async (req, res) => {
 
 
 
-// Delete AssetType ( Soft Delete )
-router.delete("/:id", authMiddleware, async (req, res) => {
-    try {
-        const result = await deleteAssetType(req.params.id); 
-        res.json({
-            message: "Asset Type Successfully Deleted",
-            changes: result.changes
-        });
-    } catch (err) {
-            res.status(500).json({
-      message: err.message
-    });
+router.delete("/:id", async (req, res) => {
+  try {
+    const canDelete = await canDeleteAssetType(req.params.id); 
+
+    // check if there is still inventory for that asset type. if so, do not allow deletion 
+    if (!canDelete) {
+      return res.status(400).json({
+        message: "Cannot delete asset type when inventory for this type still exists"
+      }); 
     }
-}); 
+
+    // If no inventory is assigned for that asset type, the user can delete the type 
+    const result = await deleteAssetType(req.params.id); 
+    res.json({
+      message: "Asset Type Successfully Deleted",
+      changes: result.changes
+    });
+
+  } catch (err) {
+    res.statys(500).json({
+      message: err.message 
+    });
+  }
+});
 
 
 

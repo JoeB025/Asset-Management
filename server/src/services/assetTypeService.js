@@ -4,10 +4,36 @@ const getAllAssetTypes = () => {
   return new Promise((resolve, reject) => {
 
     const sql = `
-      SELECT *
-      FROM AssetTypes
-      WHERE IsActive = 1
-      ORDER BY Name
+      SELECT
+          at.Id,
+          at.Name,
+          COUNT(
+              CASE
+                  WHEN i.Status <> 'Deleted'
+                  THEN 1
+              END
+          ) AS TotalActive,
+          COUNT(
+              CASE
+                  WHEN i.Status <> 'Deleted'
+                  AND i.AssignedEmployeeId IS NOT NULL
+                  THEN 1
+              END
+          ) AS AssignedCount,
+          COUNT(
+              CASE
+                  WHEN i.Status <> 'Deleted'
+                  AND i.AssignedEmployeeId IS NULL
+                  THEN 1
+              END
+          ) AS StorageCount
+      FROM AssetTypes at
+      LEFT JOIN Inventory i ON at.Id = i.AssetTypeId
+      WHERE at.IsActive = 1
+      GROUP BY
+          at.Id,
+          at.Name
+      ORDER BY at.Name
     `;
 
     db.all(sql, [], (err, rows) => {
@@ -82,6 +108,25 @@ const deleteAssetType = (id) => {
 };
 
 
+const canDeleteAssetType = (id) => {
+  return new Promise((resolve, reject) => {
+
+    const sql = `
+      SELECT COUNT(*) AS Count
+      FROM Inventory
+      WHERE AssetTypeId = ?
+      AND Status <> 'Deleted'
+    `;
+    db.get(sql, [id], (err, row) => {
+
+      if (err) return reject(err);
+
+      resolve(row.Count === 0);
+    });
+  });
+};
+
+
 // Update AssetType
 const updateAssetType = (id, name) => {
     return new Promise((resolve, reject) => {
@@ -117,5 +162,6 @@ module.exports = {
   createAssetType,
   deleteAssetType,
   updateAssetType,
-  getAssetTypeByTypeId 
+  getAssetTypeByTypeId ,
+  canDeleteAssetType
 };

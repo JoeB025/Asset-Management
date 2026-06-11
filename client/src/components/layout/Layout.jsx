@@ -19,7 +19,6 @@ export default function Layout({ children }) {
           <p><Link to="/employees">Employees</Link></p>
           <p><Link to="/asset-types">Asset Types</Link></p>
           <p><Link to="/deleted-assets">Deleted Assets</Link></p>
-
         </nav>
       </aside>
 
