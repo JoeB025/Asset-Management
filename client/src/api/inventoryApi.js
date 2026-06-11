@@ -49,3 +49,13 @@ export const returnInventoryItem = async (data) => {
   const response = await api.post("/inventory/return", data )
   return response.data 
 }
+
+export const getDeletedInventory = async () => {
+  const response = await api.get("/inventory/deleted"); 
+  return response.data; 
+}
+
+export const reassignInventoryItem = async (data) => {
+  const response = await api.post("/inventory/reassign", data); 
+  return response.data; 
+}

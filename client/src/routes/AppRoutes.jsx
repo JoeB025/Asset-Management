@@ -8,7 +8,7 @@ import Inventory from "../pages/Inventory";
 import AssetTypes from "../pages/AssetTypes";
 import EmployeeDetails from "../pages/EmployeeDetails";
 import InventoryDetails from "../pages/InventoryDetails"; 
-// import BrokenAssets from "../pages/BrokenAssets"; 
+import DeletedInventory from "../pages/DeletedInventory";
 
 export default function AppRoutes() {
   return (
@@ -80,16 +80,15 @@ export default function AppRoutes() {
       }
       />
 
-
-
-      {/* <Route
-        path="/brokenAssets"
+      <Route 
+        path="/deleted-assets"
         element={
           <ProtectedRoute>
-            <BrokenAssets />
+            <DeletedInventory />
           </ProtectedRoute>
-      }
-      /> */}
+        }
+      />
+
 
     </Routes>
   );

@@ -152,13 +152,10 @@ const getEmployeeAssets = (employeeId) => {
     db.all(
       `
       SELECT
-        Id,
-        AssetTag,
-        Manufacturer,
-        Status,
-        Condition,
-        CurrentLocation
-      FROM Inventory
+        I.*,
+        AT.Name AS AssetTypeName 
+      FROM Inventory I 
+      LEFT JOIN AssetTypes AT ON I.AssetTypeId = AT.Id 
       WHERE AssignedEmployeeId = ?
       AND Status <> 'Deleted'
       `,

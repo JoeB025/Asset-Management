@@ -4,12 +4,15 @@ import Layout from "../components/layout/Layout";
 import { getEmployeeById, getEmployeeAssets } from "../api/employeeApi";
 import { returnInventoryItem } from "../api/inventoryApi";
 import AssignAssetForm from "../components/employee/AssignAssetForm";
+import ReassignAssetForm from "../components/inventory/ReAssignAssetForm";
 
 export default function EmployeeDetails() {
   const { id } = useParams();
 
   const [employee, setEmployee] = useState(null);
   const [assets, setAssets] = useState([]);
+  const [showReassign, setShowReassign] = useState(false);
+  const [selectedAsset, setSelectedAsset] = useState(null);
 
   // 1. Keep a standalone function ONLY if child components (like AssignAssetForm) need to trigger a refresh.
   const refreshData = async () => {
@@ -94,6 +97,7 @@ export default function EmployeeDetails() {
         <table border="1" cellPadding="8">
           <thead>
             <tr>
+              <th>Asset</th>
               <th>Asset Tag</th>
               <th>Manufacturer</th>
               <th>Status</th>
@@ -105,6 +109,7 @@ export default function EmployeeDetails() {
           <tbody>
             {assets.map(asset => (
               <tr key={asset.Id}>
+                <td>{asset.AssetTypeName}</td>
                 <td>{asset.AssetTag}</td>
                 <td>{asset.Manufacturer}</td>
                 <td>{asset.Status}</td>
@@ -114,7 +119,7 @@ export default function EmployeeDetails() {
                   <button onClick={() => handleReturnToStorage(asset.Id)}>
                     Return To Storage
                   </button>
-                  <button>
+                  <button onClick={() => { setSelectedAsset(asset); setShowReassign(true); }} >
                     Reassign 
                   </button>
                 </td>
@@ -123,6 +128,25 @@ export default function EmployeeDetails() {
           </tbody>
         </table>
       )}
+
+
+
+
+{showReassign && selectedAsset && (
+  <ReassignAssetForm
+    inventoryId={selectedAsset.Id}
+    currentEmployeeId={employee.Id}
+    onClose={() => {
+      setShowReassign(false);
+      setSelectedAsset(null);
+    }}
+    onReassigned={refreshData}
+  />
+)}
+
+
+
+
     </Layout>
   );
 }

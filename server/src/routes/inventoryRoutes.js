@@ -14,7 +14,8 @@ const {
   deleteInventoryItem,
   getAvailableInventory,
   getAvailableInventoryByAssetTypeId,
-  returnInventoryItem
+  returnInventoryItem,
+  getDeletedInventory
  
 } = require("../services/inventoryService");
 
@@ -42,6 +43,60 @@ router.get("/available", authMiddleware, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+
+
+
+router.post("/reassign", authMiddleware, async (req, res) => {
+  try {
+
+    const user = req.user;
+
+    const result = await assignInventoryItem({
+      InventoryId: req.body.InventoryId,
+      AssignedEmployeeId: req.body.NewEmployeeId,
+      DateAssigned: new Date().toISOString()
+    });
+
+    await addInventoryHistory({
+      InventoryId: req.body.InventoryId,
+      ActionType: "REASSIGNED",
+      OldEmployeeId: req.body.OldEmployeeId,
+      NewEmployeeId: req.body.NewEmployeeId,
+      Notes: req.body.Notes || "Asset reassigned",
+      CreatedByLoginUserId: user.id
+    });
+
+    res.json({
+      message: "Asset reassigned successfully",
+      changes: result.changes
+    });
+
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message
+    });
+
+  }
+});
+
+
+
+
+// Get Deleted Inventory 
+router.get("/deleted", authMiddleware, async (req, res) => {
+  try {
+    const items = await getDeletedInventory();
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    });
+  }
+});
+
+
 
 
 // Get Available Inventory By Asset Type Id 
@@ -182,19 +237,65 @@ router.put("/:id", authMiddleware, async (req, res) => {
 
 
 // Delete Inventory Item (soft delete by setting IsActive to 0)
+
 router.delete("/:id", authMiddleware, async (req, res) => {
   try {
-    const result = await deleteInventoryItem(req.params.id);
+    const user = req.user;
+
+    // Get asset before deleting
+    const asset =
+      await getInventoryItemById(
+        req.params.id
+      );
+
+    // Perform delete
+    const result =
+      await deleteInventoryItem(
+        req.params.id
+      );
+
+    // Write history
+    await addInventoryHistory({
+      InventoryId: req.params.id,
+      ActionType: "DELETED",
+      OldEmployeeId: asset.AssignedEmployeeId,
+      NewEmployeeId: null,
+      Notes: "Asset deleted",
+      CreatedByLoginUserId: user.id
+    });
+
     res.json({
       message: "Inventory item deleted successfully",
       changes: result.changes
     });
+
   } catch (err) {
+
     res.status(500).json({
       message: err.message
     });
+
   }
 });
+
+
+// router.delete("/:id", authMiddleware, async (req, res) => {
+//   try {
+//     const result = await deleteInventoryItem(req.params.id);
+//     res.json({
+//       message: "Inventory item deleted successfully",
+//       changes: result.changes
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       message: err.message
+//     });
+//   }
+// });
+
+
+
+
 
 
 

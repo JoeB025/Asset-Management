@@ -320,6 +320,32 @@ const returnInventoryItem = (id) => {
 
 
 
+// Get Deleted Inventory
+const getDeletedInventory = () => {
+  return new Promise((resolve, reject) => {
+
+    const sql = `
+      SELECT
+        i.*,
+        e.FirstName || ' ' || e.LastName AS AssignedEmployeeName
+      FROM Inventory i
+      LEFT JOIN Employees e
+        ON i.AssignedEmployeeId = e.Id
+      WHERE i.Status = 'Deleted'
+      ORDER BY i.AssetTag
+    `;
+
+    db.all(sql, [], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+
+  });
+};
+
+
+
+
 module.exports = {
   getAllInventory,
   getInventoryItemById,
@@ -331,5 +357,6 @@ module.exports = {
   deleteInventoryItem,
   getAvailableInventory,
   getAvailableInventoryByAssetTypeId,
-  returnInventoryItem
+  returnInventoryItem,
+  getDeletedInventory
 };
