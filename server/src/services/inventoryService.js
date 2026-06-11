@@ -185,9 +185,17 @@ const getInventoryHistory = (inventoryId) => {
 
     const params = [];
 
-    if (inventoryId) {
+    // if (inventoryId) {
+    //   sql += ` WHERE h.InventoryId = ?`;
+    //   params.push(inventoryId);
+    //   console.log("----------------------------------- Params -----------------------------------")
+    //   console.log(params); 
+    //   console.log("----------------------------------- Params -----------------------------------")
+    // }
+
+    if (inventoryId !== null && inventoryId !== undefined) {
       sql += ` WHERE h.InventoryId = ?`;
-      params.push(inventoryId);
+      params.push(Number(inventoryId));
     }
 
     sql += ` ORDER BY h.CreatedOn DESC`;
@@ -342,8 +350,6 @@ const getDeletedInventory = () => {
 
   });
 };
-
-
 
 
 module.exports = {

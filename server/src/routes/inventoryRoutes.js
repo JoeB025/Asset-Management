@@ -98,6 +98,20 @@ router.get("/deleted", authMiddleware, async (req, res) => {
 
 
 
+// Get inventory history
+router.get("/history", authMiddleware, async (req, res) => {
+  try {
+
+    const inventoryId = req.query.inventoryId;
+    const history = await getInventoryHistory(inventoryId);
+
+    res.json(history);
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 // Get Available Inventory By Asset Type Id 
 router.get("/available/:id", authMiddleware, async (req, res) => {
@@ -164,20 +178,20 @@ router.post("/assign", authMiddleware, async (req, res) => {
 
 
 
-// Get inventory history
-router.get("/history", authMiddleware, async (req, res) => {
-  try {
+// // Get inventory history
+// router.get("/history", authMiddleware, async (req, res) => {
+//   try {
 
-    const inventoryId = req.query.inventoryId;
+//     const inventoryId = req.query.inventoryId;
 
-    const history = await getInventoryHistory(inventoryId);
+//     const history = await getInventoryHistory(inventoryId);
 
-    res.json(history);
+//     res.json(history);
 
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
 
 
 
@@ -277,26 +291,6 @@ router.delete("/:id", authMiddleware, async (req, res) => {
 
   }
 });
-
-
-// router.delete("/:id", authMiddleware, async (req, res) => {
-//   try {
-//     const result = await deleteInventoryItem(req.params.id);
-//     res.json({
-//       message: "Inventory item deleted successfully",
-//       changes: result.changes
-//     });
-//   } catch (err) {
-//     res.status(500).json({
-//       message: err.message
-//     });
-//   }
-// });
-
-
-
-
-
 
 
 

@@ -6,6 +6,7 @@ export default function InventoryHistory({ inventoryId }) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
 
     const loadHistory = async () => {
@@ -39,6 +40,9 @@ export default function InventoryHistory({ inventoryId }) {
     }
 
   }, [inventoryId]);
+
+
+
 
   if (loading) {
     return <p>Loading history...</p>;

@@ -55,9 +55,6 @@ const handleDelete = async () => {
 };
 
 
-
-
-
   if (!asset) {
     return (
       <Layout>
@@ -68,20 +65,14 @@ const handleDelete = async () => {
   }
 
 
-
-
-
-
-
-
-
-
   return (
     <Layout>
 
       <h1>
         {asset.AssetTag}
       </h1>
+
+      <p><strong>Cock and balls:</strong>{asset.Id}</p>
 
       <p>
         <strong>Asset Type:</strong>{" "}
@@ -125,7 +116,6 @@ const handleDelete = async () => {
           Delete Asset
         </button>
       <hr />
-
 
       <InventoryHistory
         inventoryId={asset.Id}
