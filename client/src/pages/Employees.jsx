@@ -9,6 +9,7 @@ export default function Employees() {
 
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false); 
 
   const loadEmployees = async () => {
 
@@ -48,8 +49,16 @@ export default function Employees() {
   return (
     <Layout>
       <h1>Employees</h1>
-        <EmployeeForm onCreated={loadEmployees} />
+        <button onClick={() => setShowForm(!showForm)}>      
+          {showForm ? "Cancel" : "Add Employee"}
+        </button>
+
+        {showForm && (
+          <EmployeeForm onCreated={async () => { await loadEmployees(); setShowForm(false); }}/>
+        )}
+      
       <hr />
+      
       <EmployeeTable
         employees={employees}
         onRefresh={loadEmployees}
