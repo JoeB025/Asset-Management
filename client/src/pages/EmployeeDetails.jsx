@@ -5,6 +5,7 @@ import { getEmployeeById, getEmployeeAssets } from "../api/employeeApi";
 import { returnInventoryItem } from "../api/inventoryApi";
 import AssignAssetForm from "../components/employee/AssignAssetForm";
 import ReassignAssetForm from "../components/inventory/ReAssignAssetForm";
+import { Link } from "react-router-dom";
 
 export default function EmployeeDetails() {
   const { id } = useParams();
@@ -110,7 +111,11 @@ export default function EmployeeDetails() {
             {assets.map(asset => (
               <tr key={asset.Id}>
                 <td>{asset.AssetTypeName}</td>
-                <td>{asset.AssetTag}</td>
+                <td>
+                  <Link to={`/inventory/${asset.Id}`}>
+                    {asset.AssetTag}
+                  </Link>
+                </td>
                 <td>{asset.Manufacturer}</td>
                 <td>{asset.Status}</td>
                 <td>{asset.Condition}</td>

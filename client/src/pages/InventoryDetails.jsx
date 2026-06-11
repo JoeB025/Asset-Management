@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import InventoryHistory from "../components/inventory/InventoryHistory";
 import { getInventoryItem, deleteInventoryItem } from "../api/inventoryApi";
-
+import { Link } from "react-router-dom";
 
 
 
@@ -65,52 +65,48 @@ const handleDelete = async () => {
   }
 
 
+
   return (
     <Layout>
 
       <h1>
-        {asset.AssetTag}
+        {asset.AssetTypeName}      
       </h1>
-
-      <p><strong>Cock and balls:</strong>{asset.Id}</p>
-
-      <p>
-        <strong>Asset Type:</strong>{" "}
-        {asset.AssetTypeName}
-      </p>
-
+      <h2>
+        {asset.AssetTag}
+      </h2>
       <p>
         <strong>Manufacturer:</strong>{" "}
         {asset.Manufacturer}
       </p>
-
       <p>
         <strong>Serial Number:</strong>{" "}
         {asset.SerialNumber}
       </p>
-
       <p>
         <strong>Status:</strong>{" "}
         {asset.Status}
       </p>
-
       <p>
         <strong>Condition:</strong>{" "}
         {asset.Condition}
       </p>
-
       <p>
         <strong>Location:</strong>{" "}
         {asset.CurrentLocation}
       </p>
-
       <p>
         <strong>Assigned To:</strong>{" "}
-        {asset.AssignedEmployeeName || "In Storage"}
+          {asset.AssignedEmployeeId ? (
+          <Link to={`/employees/${asset.AssignedEmployeeId}`}>
+            {asset.AssignedEmployeeName}
+          </Link>
+        ) : (
+          "In Storage"
+        )} 
       </p>
 
       <hr />
-
 
         <button onClick={handleDelete}>
           Delete Asset

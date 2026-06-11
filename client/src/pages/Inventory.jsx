@@ -78,8 +78,8 @@ const filteredInventory = selectedAssetType ? inventory.filter(item => item.Asse
       <table border="1" cellPadding="8">
         <thead>
           <tr>
+            <th>Asset type</th>
             <th>Asset Tag</th>
-            <th>Type</th>
             <th>Manufacturer</th>
             <th>Status</th>
             <th>Assigned To</th>
@@ -90,8 +90,8 @@ const filteredInventory = selectedAssetType ? inventory.filter(item => item.Asse
         <tbody>
           {filteredInventory.map(item => (
             <tr key={item.Id}>
-              <td>{item.AssetTag}</td>
               <td>{item.AssetTypeName}</td>
+              <td>{item.AssetTag}</td>
               <td>{item.Manufacturer}</td>
               <td>{item.Status}</td>
               <td>{item.AssignedEmployeeName != null ? item.AssignedEmployeeName : 'Storage'}</td>
