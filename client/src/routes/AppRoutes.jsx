@@ -9,6 +9,7 @@ import AssetTypes from "../pages/AssetTypes";
 import EmployeeDetails from "../pages/EmployeeDetails";
 import InventoryDetails from "../pages/InventoryDetails"; 
 import DeletedInventory from "../pages/DeletedInventory";
+import AssetRequests from "../pages/AssetRequests";
 
 export default function AppRoutes() {
   return (
@@ -85,6 +86,16 @@ export default function AppRoutes() {
         element={
           <ProtectedRoute>
             <DeletedInventory />
+          </ProtectedRoute>
+        }
+      />
+
+
+      <Route
+        path="/asset-requests"
+        element={
+          <ProtectedRoute>
+            <AssetRequests />
           </ProtectedRoute>
         }
       />

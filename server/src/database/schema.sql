@@ -1,3 +1,14 @@
+/*
+Drop the table if we update any of the Schema data so the table can be properly recreated. 
+
+DROP TABLE IF EXISTS AssetRequestRecord;
+DROP TABLE IF EXISTS InventoryHistory;
+DROP TABLE IF EXISTS Inventory;
+DROP TABLE IF EXISTS Employees;
+DROP TABLE IF EXISTS AssetTypes;
+DROP TABLE IF EXISTS LoginUsers;
+*/ 
+
 CREATE TABLE IF NOT EXISTS Employees(
 Id INTEGER PRIMARY KEY AUTOINCREMENT,
 FirstName TEXT NOT NULL,
@@ -52,6 +63,18 @@ Notes TEXT,
 CreatedOn DATETIME DEFAULT CURRENT_TIMESTAMP,
 CreatedByLoginUserId INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS AssetRequestRecord(
+Id Integer PRIMARY KEY AUTOINCREMENT,
+EmployeeId INTEGER, 
+AssetTypeId INTEGER, 
+DateOfRequest DATETIME,
+RequestedVia TEXT, 
+ApprovedByLoginUserId INTEGER, 
+ApprovedOn DATETIME, 
+Notes TEXT, 
+RequestCompleted INTEGER DEFAULT 0 
+); 
 
 
 INSERT OR IGNORE INTO LoginUsers

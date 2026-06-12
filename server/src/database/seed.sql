@@ -1,3 +1,4 @@
+DELETE FROM AssetRequestRecord;
 DELETE FROM InventoryHistory;
 DELETE FROM Inventory;
 DELETE FROM Employees;
@@ -7,6 +8,7 @@ DELETE FROM sqlite_sequence WHERE name='Inventory';
 DELETE FROM sqlite_sequence WHERE name='Employees';
 DELETE FROM sqlite_sequence WHERE name='AssetTypes';
 DELETE FROM sqlite_sequence WHERE name='InventoryHistory';
+DELETE FROM sqlite_sequence WHERE name='AssetRequestRecord';
 
 
 
@@ -117,3 +119,22 @@ VALUES
 ('WHG-KEY-001', 6, 'Logitech', 'LG-KBD-001', 'Active', NULL, 'New', 'Office', 'Seed keyboard', datetime('now')),
 ('WHG-PHN-001', 7, 'Apple', 'IPH-001', 'Active', NULL, 'New', 'Office', 'Seed phone', datetime('now')),
 ('WHG-HDM-001', 9, 'Generic', 'HDM-001', 'Active', NULL, 'New', 'Office', 'Seed HDMI cable', datetime('now'));
+
+
+
+-- Asset Request Recprd 
+INSERT INTO AssetRequestRecord(
+EmployeeId, 
+AssetTypeId,
+DateOfRequest,
+RequestedVia, 
+ApprovedByLoginUserId,
+ApprovedOn, 
+Notes,
+RequestCompleted
+)
+VALUES 
+(1, 4, datetime('now'), 'Email', 1, datetime('now'), 'Request for xyz equipment', 0),
+(2, 7, datetime('now'), 'Email', 1, datetime('now'), 'Request for abc equipment', 0),
+(2, 9, datetime('now'), 'Verbal', 1, datetime('now'), 'Request for ... equipment', 0),
+(3, 9, datetime('now'), 'Email', 1, datetime('now'), 'Request for x equipment', 0);
