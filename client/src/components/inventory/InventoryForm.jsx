@@ -6,6 +6,7 @@ import { getAssetTypes } from "../../api/assetTypeApi";
 export default function InventoryForm({ onCreated }) {
 
   const [assetTypes, setAssetTypes] = useState([]);
+  const [error, setError] = useState(""); 
 
   const [formData, setFormData] = useState({
     AssetTag: "",
@@ -42,22 +43,37 @@ export default function InventoryForm({ onCreated }) {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
+    setError(""); 
 
-    await createInventoryItem({
+    try {
+          await createInventoryItem({
 
       ...formData,
 
       Status: "Active",
       Condition: "New",
       CurrentLocation: "Storage",
-
       AssignedEmployeeId: null,
       DateAssigned: null
-
     });
 
-    onCreated();
+    setFormData({
+      AssetTag: "",
+      AssetTypeId: "",
+      Manufacturer: "",
+      SerialNumber: "", 
+      PurchaseDate: "",
+      Notes: ""
+    })
 
+    onCreated();
+    } catch (error) {
+      console.error(error); 
+
+      setError(
+        error.response?.data?.message || "Failed to create asset"
+      ); 
+    }
   };
 
   return (
@@ -69,7 +85,6 @@ export default function InventoryForm({ onCreated }) {
       <div>
 
         <label>Asset Tag</label>
-
         <input
           type="text"
           name="AssetTag"
@@ -77,6 +92,10 @@ export default function InventoryForm({ onCreated }) {
           onChange={handleChange}
           required
         />
+
+        {error && (
+          <p style={{ color: "red", marginTop: "10px" }}> {error}</p>
+        )}
 
       </div>
 
@@ -96,6 +115,7 @@ export default function InventoryForm({ onCreated }) {
           <option value="">
             Select Asset Type
           </option>
+          
 
           {assetTypes.map(type => (
 

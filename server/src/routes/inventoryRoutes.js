@@ -46,7 +46,7 @@ router.get("/available", authMiddleware, async (req, res) => {
 
 
 
-
+// Reassign Inventory Item 
 router.post("/reassign", authMiddleware, async (req, res) => {
   try {
 
@@ -143,6 +143,12 @@ router.post("/", authMiddleware, async (req, res) => {
     const newItem = await createInventoryItem(req.body);
     res.status(201).json(newItem);
   } catch (err) {
+
+    if (err.message.includes("UNIQUE")) {
+      return res.status(400).json({
+        message: "An Asset with this Asset Tag already exists."
+      }); 
+    }
     res.status(500).json({ message: err.message });
   }
 });
@@ -178,24 +184,6 @@ router.post("/assign", authMiddleware, async (req, res) => {
 
 
 
-// // Get inventory history
-// router.get("/history", authMiddleware, async (req, res) => {
-//   try {
-
-//     const inventoryId = req.query.inventoryId;
-
-//     const history = await getInventoryHistory(inventoryId);
-
-//     res.json(history);
-
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
-
-
-
 // Return asset to storage
 router.post("/return", authMiddleware, async (req, res) => {
   try {
@@ -228,7 +216,6 @@ router.post("/return", authMiddleware, async (req, res) => {
 
   }
 });
-
 
 
 
