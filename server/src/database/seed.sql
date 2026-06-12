@@ -3,12 +3,32 @@ DELETE FROM InventoryHistory;
 DELETE FROM Inventory;
 DELETE FROM Employees;
 DELETE FROM AssetTypes;
+DELETE FROM LoginUsers; 
 
+DELETE FROM sqlite_sequence WHERE name ='LoginUsers'; 
 DELETE FROM sqlite_sequence WHERE name='Inventory';
 DELETE FROM sqlite_sequence WHERE name='Employees';
 DELETE FROM sqlite_sequence WHERE name='AssetTypes';
 DELETE FROM sqlite_sequence WHERE name='InventoryHistory';
 DELETE FROM sqlite_sequence WHERE name='AssetRequestRecord';
+
+
+
+
+INSERT INTO LoginUsers
+(
+    EmployeeId,
+    Username,
+    PasswordHash,
+    Role,
+    IsActive
+)
+VALUES
+(1, 'admin', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Admin', 1),
+(2, 'Tony Vardy', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Compliance', 1),
+(3, 'Jon Kelly-Evans', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'The Master', 1),
+(4, 'James Latchford', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Accountant', 1),
+(5, 'Joel Garrigan', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Human Resources', 1);
 
 
 
@@ -137,4 +157,7 @@ VALUES
 (1, 4, datetime('now'), 'Email', 1, datetime('now'), 'Request for xyz equipment', 0),
 (2, 7, datetime('now'), 'Email', 1, datetime('now'), 'Request for abc equipment', 0),
 (2, 9, datetime('now'), 'Verbal', 1, datetime('now'), 'Request for ... equipment', 0),
-(3, 9, datetime('now'), 'Email', 1, datetime('now'), 'Request for x equipment', 0);
+(3, 9, datetime('now'), 'Email', 1, datetime('now'), 'Request for x equipment', 0),
+(1, 2, datetime('now'), 'Email', 2, datetime('now'), 'Request for x equipment', 1),
+(1, 3, datetime('now'), 'Email', 3, datetime('now'), 'Request for x equipment', 1),
+(4, 7, datetime('now'), 'Email', 2, datetime('now'), 'Request for x equipment', 1);

@@ -71,7 +71,7 @@ router.put("/:id/complete", authMiddleware, async (req, res) => {
       await completeAssetRequest(
         req.params.id,
         {
-          ApprovedBy: req.user.username,
+          ApprovedByLoginUserId: req.user.username,
           ApprovedOn: new Date().toISOString()
         }
       );
