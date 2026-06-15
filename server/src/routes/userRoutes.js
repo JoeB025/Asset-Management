@@ -36,8 +36,7 @@ router.post("/",authMiddleware, async (req, res) => {
     try {
       const passwordHash = await hashPassword(req.body.Password);
 
-      const result =
-        await createUser({
+      const result = await createUser({
           EmployeeId: req.body.EmployeeId,
           EmailAddress: req.body.EmailAddress, 
           Username: req.body.Username,
@@ -46,8 +45,10 @@ router.post("/",authMiddleware, async (req, res) => {
         });
       res.status(201).json(result);
     } catch (err) {
-      res.status(500).json({
-        message: err.message
+      console.log("CREATE USER ERROR:", err);
+
+      res.status(400).json({
+        message: err.message || "Failed to create user",
       });
     }
   }

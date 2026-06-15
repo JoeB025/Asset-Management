@@ -47,17 +47,23 @@ const createUser = (data) => {
       sql,
       [
         data.EmployeeId,
-        data.EmailAddress, 
+        data.EmailAddress,
         data.Username,
         data.PasswordHash,
-        data.Role
+        data.Role,
       ],
-      function(err) {
+      function (err) {
 
-        if (err) return reject(err);
+        if (err) {
+          if (err.code === "SQLITE_CONSTRAINT") {
+            return reject(new Error("Email address already exists"));
+          }
+
+          return reject(new Error(err.message || "Database error"));
+        }
 
         resolve({
-          Id: this.lastID
+          Id: this.lastID,
         });
       }
     );
