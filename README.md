@@ -1,72 +1,106 @@
 InventorySystem
 │
-├── Client -- Not built yet
+├── Client 
+│   └── src
+│       ├── api/
+│       │   ├── assetRequestApi.js
+│       │   ├── assetTypeApi.js
+│       │   ├── authApi.js
+│       │   ├── axiosClient.js
+│       │   ├── dashboardApi.js
+│       │   ├── employeeApi.js
+│       │   ├── inventoryApi.js
+│       │   └── userApi.js
+│       │
+│       ├── components/
+│       │   ├── assetRequests/
+│       │   │   ├── AssetRequestForm.jsx
+│       │   │   └── AssetRequestTable.jsx
+│       │   ├── employee/
+│       │   │   ├── AssignAssetForm.jsx
+│       │   │   ├── EmployeeForm.jsx
+│       │   │   ├── EmployeeRow.jsx
+│       │   │   └── EmployeeTable.jsx
+│       │   ├── inventory/
+│       │   │   ├── InventoryForm.jsx
+│       │   │   ├── InventoryHistory.jsx
+│       │   │   ├── InventoryRow.jsx
+│       │   │   ├── InventoryTable.jsx
+│       │   │   └── ReAssignAssetForm.jsx
+│       │   ├── layout/
+│       │   │   └── layout.jsx
+│       │   └── users/
+│       │       ├── ResetPasswordForm.jsx
+│       │       ├── UserForm.jsx
+│       │       └── UserTable.jsx
+│       │
+│       ├── constants/
+│       │   ├── jobTitles.js
+│       │   └── teams.js
+│       │
+│       ├── context/
+│       │   └── AuthContext.jsx
+│       │
+│       ├── pages/
+│       │   ├── AssetRequests.jsx
+│       │   ├── AssetTypes.jsx
+│       │   ├── Dashboard.jsx
+│       │   ├── DeletedInventory.jsx
+│       │   ├── EmployeeDetails.jsx
+│       │   ├── Employees.jsx
+│       │   ├── Inventory.jsx
+│       │   ├── InventoryDetails.jsx
+│       │   ├── Login.jsx
+│       │   └── Users.tsx
+│       │
+│       ├── routes/
+│       │   ├── AppRoutes.jsx
+│       │   └── ProtectedRoute.jsx
+│       │
+│       ├── styles/
+│       │   └── theme.js
+│       │
+│       ├── App.css
+│       ├── App.jsx
+│       ├── index.css
+│       └── main.jsx
 │
 └── Server
     │
-    ├── Authentication
-    │   ├── Login
-    │   ├── JWT
-    │   └── Protected Routes
+    ├── Authentication & Security
+    │   ├── middleware/authMiddleware.js
+    │   ├── utils/jwt.js
+    │   └── utils/hash.js
     │
-    ├── Employees
-    │   ├── Get All
-    │   ├── Get By Id
-    │   ├── Create
-    │   ├── Update
-    │   └── Soft Delete
+    ├── Routes & Endpoints
+    │   ├── routes/authRoutes.js
+    │   ├── routes/userRoutes.js
+    │   ├── routes/employeeRoutes.js
+    │   ├── routes/inventoryRoutes.js
+    │   ├── routes/assetTypeRoutes.js
+    │   ├── routes/assetRequestRoutes.js
+    │   └── routes/dashboardRoutes.js
     │
-    ├── Inventory
-    │   ├── Get All
-    │   ├── Create
-    │   ├── Assign
-    │   └── History
+    ├── Business Logic (Services)
+    │   ├── services/authService.js
+    │   ├── services/userService.js
+    │   ├── services/employeeService.js
+    │   ├── services/inventoryService.js
+    │   ├── services/assetTypeService.js
+    │   ├── services/assetRequestService.js
+    │   └── services/dashboardService.js
     │
-    └── SQLite Database
-
-
-
-
-
-    SERVER STRUCTURE
-
-/config
-  db.js
-
-/controllers
-  authController.js
-
-/services
-  authService.js
-  userService.js
-  inventoryService.js
-  employeeService.js
-  assetTypeService.js
-  assetRequestService.js
-  dashboardService.js
-
-/routes
-  authRoutes.js
-  userRoutes.js
-  inventoryRoutes.js
-  employeeRoutes.js
-  assetTypeRoutes.js
-  assetRequestRoutes.js
-  dashboardRoutes.js
-
-/middleware
-  authMiddleware.js
-
-/utils
-  jwt.js
-  hash.js
-
-/database
-  db.js
-  schema.sql
-  seed.sql
-  seed.js
-  inventory.db
-
-/app.js
-/server.js
+    ├── Controllers
+    │   └── controllers/authController.js
+    │
+    ├── SQLite Database & Configuration
+    │   ├── config/db.js
+    │   └── database/
+    │       ├── db.js
+    │       ├── schema.sql
+    │       ├── seed.sql
+    │       ├── seed.js
+    │       └── inventory.db
+    │
+    ├── app.js
+    └── server.js
