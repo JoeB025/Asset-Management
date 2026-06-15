@@ -19,9 +19,7 @@ router.get("/", authMiddleware, async (req, res) => {
         const assetRequests = await getAllAssetRequests(); 
         res.json(assetRequests); 
     } catch (err) {
-        res.status(500).json({
-            message: err.message 
-        });
+        res.status(500).json({ message: err.message });
     }
 });
 

@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes"); 
 const inventoryRoutes = require("./routes/inventoryRoutes");
 const employeeRoutes = require("./routes/employeeRoutes");
 const assetTypeRoutes = require("./routes/assetTypeRoutes");
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes); 
 app.use("/api/inventory", inventoryRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/asset-types", assetTypeRoutes);

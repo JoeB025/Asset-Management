@@ -4,14 +4,14 @@ import { login as loginApi } from "../api/authApi";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
   const [user, setUser] = useState(null);
 
-  const login = async (username, password) => {
-
-    const response = await loginApi(username, password);
+  const login = async (emailAddress, password) => {
+    const response = await loginApi(emailAddress, password);
 
     localStorage.setItem("token", response.token);
+    localStorage.setItem("emailAddress", response.user.emailAddress);
+    localStorage.setItem("displayName", response.user.username);
 
     setUser(response.user);
 
@@ -19,20 +19,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-
     localStorage.removeItem("token");
-
+    localStorage.removeItem("emailAddress");
+    localStorage.removeItem("displayName");
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        login,
-        logout
-      }}
-    >
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Layout({ children }) {
 
-
  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -31,16 +30,16 @@ export default function Layout({ children }) {
           <p><Link to="/asset-types">Asset Types</Link></p>
           <p><Link to="/deleted-assets">Deleted Assets</Link></p>
           <p><Link to="/asset-requests">Asset Requests</Link></p>
+          <p><Link to="/users">Users</Link></p>
           <hr />
-          <p>Logged In</p>
-          {/* <p>
-            Logged in as:
-            <br />
+
+
+          <p>Logged in as:<br />
             <strong>
               {localStorage.getItem("username")}
             </strong>
-          </p> */}
-          <button onClick={handleLogout}>Logout</button>
+          </p>
+          <button onClick={handleLogout}>Logout</button> 
         </nav>
       </aside>
 

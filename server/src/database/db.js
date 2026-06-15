@@ -8,7 +8,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
     console.error("DB connection error:", err.message);
   } else {
     console.log("Connected to SQLite database");
+    console.log("DB OPENED AT:", db.filename);
   }
 });
 
 module.exports = db;
+
+
+

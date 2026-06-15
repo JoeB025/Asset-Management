@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export default function AssetRequestTable({requests, onRefresh}) {
 
-
     const activeRequests = requests.filter(x => !x.RequestCompleted);
     const completedRequests = requests.filter(x => x.RequestCompleted);
 

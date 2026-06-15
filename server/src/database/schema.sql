@@ -1,13 +1,10 @@
-/*
-Drop the table if we update any of the Schema data so the table can be properly recreated. 
+-- DROP TABLE IF EXISTS AssetRequestRecord;
+-- DROP TABLE IF EXISTS InventoryHistory;
+-- DROP TABLE IF EXISTS Inventory;
+-- DROP TABLE IF EXISTS Employees;
+-- DROP TABLE IF EXISTS AssetTypes;
+-- DROP TABLE IF EXISTS LoginUsers;
 
-DROP TABLE IF EXISTS AssetRequestRecord;
-DROP TABLE IF EXISTS InventoryHistory;
-DROP TABLE IF EXISTS Inventory;
-DROP TABLE IF EXISTS Employees;
-DROP TABLE IF EXISTS AssetTypes;
-DROP TABLE IF EXISTS LoginUsers;
-*/ 
 
 CREATE TABLE IF NOT EXISTS Employees(
 Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,7 +21,8 @@ IsActive INTEGER DEFAULT 1
 CREATE TABLE IF NOT EXISTS LoginUsers(
 Id INTEGER PRIMARY KEY AUTOINCREMENT,
 EmployeeId INTEGER,
-Username TEXT UNIQUE NOT NULL,
+EmailAddress TEXT UNIQUE NOT NULL, 
+Username TEXT NOT NULL,
 PasswordHash TEXT NOT NULL,
 Role TEXT NOT NULL,
 CreatedOn DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -77,7 +75,7 @@ RequestCompleted INTEGER DEFAULT 0
 ); 
 
 
-INSERT OR IGNORE INTO LoginUsers
-(Id, EmployeeId, Username, PasswordHash, Role, IsActive)
-VALUES
-(1, 1, 'admin', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Admin', 1);
+-- INSERT OR IGNORE INTO LoginUsers
+-- (Id, EmployeeId, Username, PasswordHash, Role, IsActive)
+-- VALUES
+-- (1, 1, 'admin', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Admin', 1);

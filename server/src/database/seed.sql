@@ -1,9 +1,10 @@
 DELETE FROM AssetRequestRecord;
 DELETE FROM InventoryHistory;
 DELETE FROM Inventory;
+DELETE FROM LoginUsers; 
 DELETE FROM Employees;
 DELETE FROM AssetTypes;
-DELETE FROM LoginUsers; 
+
 
 DELETE FROM sqlite_sequence WHERE name ='LoginUsers'; 
 DELETE FROM sqlite_sequence WHERE name='Inventory';
@@ -11,25 +12,6 @@ DELETE FROM sqlite_sequence WHERE name='Employees';
 DELETE FROM sqlite_sequence WHERE name='AssetTypes';
 DELETE FROM sqlite_sequence WHERE name='InventoryHistory';
 DELETE FROM sqlite_sequence WHERE name='AssetRequestRecord';
-
-
-
-
-INSERT INTO LoginUsers
-(
-    EmployeeId,
-    Username,
-    PasswordHash,
-    Role,
-    IsActive
-)
-VALUES
-(1, 'admin', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Admin', 1),
-(2, 'Tony Vardy', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Compliance', 1),
-(3, 'Jon Kelly-Evans', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'The Master', 1),
-(4, 'James Latchford', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Accountant', 1),
-(5, 'Joel Garrigan', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Human Resources', 1);
-
 
 
 -- Asset Types
@@ -46,8 +28,20 @@ VALUES
 (9, 'HDMI Cable', 1);
 
 -- Employees
-INSERT INTO Employees (FirstName, LastName, JobTitle, Team, WorksFromHome, Email, IsActive)
+INSERT INTO Employees (
+FirstName, 
+LastName, 
+JobTitle, 
+Team, 
+WorksFromHome, 
+Email, 
+IsActive)
 VALUES
+
+('Admin', 'Admin', 'HR Manager', 'Human Resources', 0, 'admin@whitehallgroup.co.uk', 1),
+('Tony', 'Vardy', 'Compliance Manager', 'Compliance', 0, 'toni.vardy@whitehallgroup.co.uk', 1),
+('Jon', 'Kelly-Evans', 'IT Support', 'IT', 0, 'itsupport@whitehallgroup.co.uk', 1),
+('Joel', 'Garrigan', 'HR Manager', 'Human Resources', 0, 'joel.garrigan@whitehallgroup.co.uk', 1),
 ('Bugs', 'Bunny', 'HR Manager', 'Human Resources', 0, 'bugs.bunny@test.com', 1),
 ('Daffy', 'Duck', 'Compliance Manager', 'Compliance', 0, 'daffy.duck@test.com', 1),
 ('Porky', 'Pig', 'IT Support', 'IT', 0, 'porky.pig@test.com', 1),
@@ -139,6 +133,23 @@ VALUES
 ('WHG-KEY-001', 6, 'Logitech', 'LG-KBD-001', 'Active', NULL, 'New', 'Office', 'Seed keyboard', datetime('now')),
 ('WHG-PHN-001', 7, 'Apple', 'IPH-001', 'Active', NULL, 'New', 'Office', 'Seed phone', datetime('now')),
 ('WHG-HDM-001', 9, 'Generic', 'HDM-001', 'Active', NULL, 'New', 'Office', 'Seed HDMI cable', datetime('now'));
+
+
+
+INSERT INTO LoginUsers
+(
+    EmployeeId,
+    EmailAddress, 
+    Username,
+    PasswordHash,
+    Role,
+    IsActive
+)
+VALUES
+(1, 'admin@whitehallgroup.co.uk', 'admin', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Admin', 1),
+(2, 'toni.vardy@whitehallgroup.co.uk', 'Tony Vardy', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Compliance', 1),
+(3, 'itsupport@whitehallgroup.co.uk', 'Jon Kelly-Evans', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'The Master', 1),
+(4, 'joel.garrigan@whitehallgroup.co.uk', 'Joel Garrigan', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Human Resources', 1);
 
 
 

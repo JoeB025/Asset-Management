@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
-
 import { getEmployees } from "../../api/employeeApi";
 import { getAssetTypes } from "../../api/assetTypeApi";
+import { createAssetRequest } from "../../api/assetRequestApi";
 
-import {
-  createAssetRequest
-} from "../../api/assetRequestApi";
-
-export default function AssetRequestForm({
-  onCreated
-}) {
+export default function AssetRequestForm({ onCreated}) {
 
   const [employees, setEmployees] = useState([]);
   const [assetTypes, setAssetTypes] = useState([]);

@@ -1,5 +1,6 @@
 const db = require("../database/db");
-// const { get } = require("../routes/employeeRoutes");
+
+
 
 // GET all inventory items
 const getAllInventory = () => {
@@ -184,14 +185,6 @@ const getInventoryHistory = (inventoryId) => {
     `;
 
     const params = [];
-
-    // if (inventoryId) {
-    //   sql += ` WHERE h.InventoryId = ?`;
-    //   params.push(inventoryId);
-    //   console.log("----------------------------------- Params -----------------------------------")
-    //   console.log(params); 
-    //   console.log("----------------------------------- Params -----------------------------------")
-    // }
 
     if (inventoryId !== null && inventoryId !== undefined) {
       sql += ` WHERE h.InventoryId = ?`;
