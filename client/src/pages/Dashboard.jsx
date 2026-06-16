@@ -3,7 +3,7 @@ import StatCard from "../components/ui/StatCard";
 import PageHeader from "../components/ui/PageHeader";
 import { getDashboard } from "../api/dashboardApi";
 import Loader from "../components/ui/Loader";
-
+import { Link } from "react-router-dom"; 
 import "../styles/dashboard.css";
 
 export default function Dashboard() {
@@ -41,6 +41,8 @@ export default function Dashboard() {
       {/* KPI CARDS */}
       <div className="dashboard-grid">
 
+
+      <Link to={"/inventory"}>
         <StatCard
           title="Total Assets"
           value={stats.totalAssets}
@@ -48,6 +50,7 @@ export default function Dashboard() {
           icon="💻"
           color="primary"
         />
+      </Link>
 
         <StatCard
           title="Assigned Assets"
@@ -65,6 +68,8 @@ export default function Dashboard() {
           color="warning"
         />
 
+
+      <Link to={"/employees"}>
         <StatCard
           title="Employees"
           value={stats.employees}
@@ -72,20 +77,13 @@ export default function Dashboard() {
           icon="🏢"
           color="primary"
         />
-
+      </Link>
       </div>
 
       {/* SECOND ROW */}
       <div className="dashboard-grid">
 
-        <StatCard
-          title="Deleted Assets"
-          value={stats.deletedAssets}
-          subtitle="Removed from system"
-          icon="🗑️"
-          color="danger"
-        />
-
+      <Link to={"/asset-types"}>
         <StatCard
           title="Asset Types"
           value={stats.assetTypes}
@@ -93,6 +91,17 @@ export default function Dashboard() {
           icon="🏷️"
           color="primary"
         />
+      </Link>
+
+      <Link to={"/deleted-assets"}>
+        <StatCard
+          title="Deleted Assets"
+          value={stats.deletedAssets}
+          subtitle="Removed from system"
+          icon="🗑️"
+          color="danger"
+        />
+      </Link>
 
       </div>
 
@@ -109,6 +118,7 @@ export default function Dashboard() {
             <li>Fix the Logout text - Should show users name.</li>
             <li>Create a page for the users so email addresses / names can be edited</li>
             <li>Add in a branding logo somewhere</li>
+            <li>Add in downloads so a user can download a form or list - could come in handy to take to a stock room / inventory cupboard or something</li>
           </ul>
         </p>
       </div>
