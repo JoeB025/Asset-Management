@@ -65,11 +65,13 @@ router.post("/", authMiddleware, async (req, res) => {
 router.put("/:id/complete", authMiddleware, async (req, res) => {
   try {
 
+    console.log("USER FROM TOKEN:", req.user);
+
     const result =
       await completeAssetRequest(
         req.params.id,
         {
-          ApprovedByLoginUserId: req.user.username,
+          ApprovedByLoginUserId: req.user.id,
           ApprovedOn: new Date().toISOString()
         }
       );

@@ -69,17 +69,12 @@ export default function AssetRequestTable({ requests, onRefresh }) {
                 {request.EmployeeName}
               </Link>
             </td>
-
             <td>{request.AssetTypeName}</td>
-
             <td>{request.RequestedVia}</td>
-
             <td>{request.DateOfRequest}</td>
-
             <td>{request.Notes}</td>
-
+            
             <td style={{ display: "flex", gap: "8px" }}>
-
               <button
                 className="btn btn-secondary"
                 onClick={() => handleComplete(request.Id)}
@@ -93,9 +88,7 @@ export default function AssetRequestTable({ requests, onRefresh }) {
               >
                 Delete
               </button>
-
             </td>
-
           </tr>
         )}
       />
