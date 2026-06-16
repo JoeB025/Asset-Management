@@ -5,9 +5,7 @@ export default function EmployeeRow({ employee, onRefresh }) {
 
   const handleDelete = async () => {
 
-    const confirmed = window.confirm(
-      `Delete ${employee.FirstName} ${employee.LastName}?`
-    );
+    const confirmed = window.confirm(`Delete ${employee.FirstName} ${employee.LastName}?`);
 
     if (!confirmed) {
       return;
@@ -33,7 +31,7 @@ export default function EmployeeRow({ employee, onRefresh }) {
       <td>{employee.Id}</td>
 
       <td>
-        {employee.FirstName} {employee.LastName}
+        {employee.FirstName} {employee.LastName} 
       </td>
 
       <td>{employee.JobTitle}</td>

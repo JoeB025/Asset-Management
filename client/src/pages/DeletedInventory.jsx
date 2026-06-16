@@ -1,60 +1,65 @@
 import { useEffect, useState } from "react";
 import { getDeletedInventory } from "../api/inventoryApi";
 
+import DataTable from "../components/ui/DataTable";
+import PageHeader from "../components/ui/PageHeader";
+import Loader from "../components/ui/Loader";
+
 export default function DeletedInventory() {
 
   const [assets, setAssets] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
     const loadAssets = async () => {
-
-      const data =
-        await getDeletedInventory();
-
-      setAssets(data);
-
+      try {
+        const data = await getDeletedInventory();
+        setAssets(data);
+      } finally {
+        setLoading(false);
+      }
     };
 
     loadAssets();
 
   }, []);
 
+  if (loading) {
+    return <Loader text="Loading deleted assets..." />;
+  }
+
+  const columns = [
+    { key: "tag", label: "Asset Tag" },
+    { key: "type", label: "Type" },
+    { key: "manufacturer", label: "Manufacturer" },
+    { key: "status", label: "Status" }
+  ];
+
   return (
-    <>
+    <div className="app-page">
 
-      <h1>Deleted Assets</h1>
+      <PageHeader
+        title="Deleted Assets"
+        subtitle="Archive of removed inventory items"
+      />
 
-      <table border="1" cellPadding="8">
+      <DataTable
+        columns={columns}
+        data={assets}
+        emptyMessage="No deleted assets found"
+        renderRow={(asset) => (
+          <tr key={asset.Id}>
 
-        <thead>
-          <tr>
-            <th>Asset Tag</th>
-            <th>Type</th>
-            <th>Manufacturer</th>
-            <th>Status</th>
+            <td>{asset.AssetTag}</td>
+            <td>{asset.AssetTypeName}</td>
+            <td>{asset.Manufacturer}</td>
+            <td>{asset.Status}</td>
+
           </tr>
-        </thead>
+        )}
+      />
 
-        <tbody>
-
-          {assets.map(asset => (
-
-            <tr key={asset.Id}>
-
-              <td>{asset.AssetTag}</td>
-              <td>{asset.AssetTypeName}</td>
-              <td>{asset.Manufacturer}</td>
-              <td>{asset.Status}</td>
-
-            </tr>
-
-          ))}
-
-        </tbody>
-
-      </table>
-
-    </>
+    </div>
   );
 }

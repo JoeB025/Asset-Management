@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { disableUser } from "../../api/userApi";
 import ResetPasswordForm from "./ResetPasswordForm";
-
 import DataTable from "../ui/DataTable";
 import ConfirmModal from "../ui/ConfirmModal";
 import Badge from "../ui/Badge";
@@ -17,9 +16,19 @@ export default function UserTable({ users, onRefresh }) {
     onRefresh();
   };
 
+  const columns = [
+    { key: "username", label: "Username" },
+    { key: "email", label: "Email" },
+    { key: "employee", label: "Employee" },
+    { key: "role", label: "Role" },
+    { key: "status", label: "Status" },
+    { key: "actions", label: "Actions" }
+  ];
+
   return (
     <>
       <DataTable
+        columns={columns}
         data={users}
         emptyMessage="No users found"
         renderRow={(user) => (

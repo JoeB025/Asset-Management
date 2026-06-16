@@ -1,38 +1,24 @@
 import { useEffect, useState } from "react";
 import { getInventoryHistory } from "../../api/inventoryApi";
+import DataTable from "../ui/DataTable";
+import Loader from "../ui/Loader";
 
 export default function InventoryHistory({ inventoryId }) {
 
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
 
     const loadHistory = async () => {
-
       try {
-
-        const data =
-          await getInventoryHistory(
-            inventoryId
-          );
-
+        const data = await getInventoryHistory(inventoryId);
         setHistory(data);
-
       } catch (error) {
-
-        console.error(
-          "Failed to load history",
-          error
-        );
-
+        console.error("Failed to load history", error);
       } finally {
-
         setLoading(false);
-
       }
-
     };
 
     if (inventoryId) {
@@ -41,72 +27,40 @@ export default function InventoryHistory({ inventoryId }) {
 
   }, [inventoryId]);
 
-
-
-
   if (loading) {
-    return <p>Loading history...</p>;
+    return <Loader text="Loading history..." />;
   }
 
-  if (history.length === 0) {
-    return <p>No history found.</p>;
-  }
+  const columns = [
+    { key: "action", label: "Action" },
+    { key: "oldEmployee", label: "Old Employee" },
+    { key: "newEmployee", label: "New Employee" },
+    { key: "notes", label: "Notes" },
+    { key: "date", label: "Date" }
+  ];
 
   return (
     <div>
 
       <h3>Asset History</h3>
 
-      <table
-        border="1"
-        cellPadding="8"
-      >
+      <DataTable
+        columns={columns}
+        data={history}
+        emptyMessage="No history found"
+        renderRow={(item) => (
+          <tr key={item.Id}>
 
-        <thead>
-          <tr>
-            <th>Action</th>
-            <th>Old Employee</th>
-            <th>New Employee</th>
-            <th>Notes</th>
-            <th>Date</th>
+            <td>{item.ActionType}</td>
+            <td>{item.OldEmployeeName || "-"}</td>
+            <td>{item.NewEmployeeName || "-"}</td>
+            <td>{item.Notes}</td>
+            <td>{item.CreatedOn}</td>
+
           </tr>
-        </thead>
-
-        <tbody>
-
-          {history.map(item => (
-
-            <tr key={item.Id}>
-
-              <td>
-                {item.ActionType}
-              </td>
-
-              <td>
-                {item.OldEmployeeName || "-"}
-              </td>
-
-              <td>
-                {item.NewEmployeeName || "-"}
-              </td>
-
-              <td>
-                {item.Notes}
-              </td>
-
-              <td>
-                {item.CreatedOn}
-              </td>
-
-            </tr>
-
-          ))}
-
-        </tbody>
-
-      </table>
+        )}
+      />
 
     </div>
   );
-
 }
