@@ -1,63 +1,73 @@
-import { completeAssetRequest, deleteAssetRequest } from "../../api/assetRequestApi";
+import { completeAssetRequest, deleteAssetRequest} from "../../api/assetRequestApi";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
+import DataTable from "../ui/DataTable";
+import ConfirmModal from "../ui/ConfirmModal";
+import { useState } from "react";
 
-export default function AssetRequestTable({requests, onRefresh}) {
+export default function AssetRequestTable({ requests, onRefresh }) {
 
-    const activeRequests = requests.filter(x => !x.RequestCompleted);
-    const completedRequests = requests.filter(x => x.RequestCompleted);
+  const [deleteId, setDeleteId] = useState(null);
+
+  const activeRequests = requests.filter(x => !x.RequestCompleted);
+  const completedRequests = requests.filter(x => x.RequestCompleted);
 
   const handleComplete = async (id) => {
-
-    await completeAssetRequest(id);
-
-    onRefresh();
-
+    try {
+      await completeAssetRequest(id);
+      toast.success("Request completed");
+      onRefresh();
+    } catch (error) {
+      toast.error(error.response?.data?.message);
+    }
   };
 
-const handleDelete = async (id) => {
-  if (!window.confirm("Delete request?")) {
-    return;
-  }
+  const handleDelete = async () => {
+    try {
+      await deleteAssetRequest(deleteId);
+      toast.success("Request deleted");
+      setDeleteId(null);
+      onRefresh();
+    } catch (error) {
+      toast.error(error.response?.data?.message);
+    }
+  };
 
-  try {
-    await deleteAssetRequest(id);
-    toast.success("Asset request deleted successfully");
-    onRefresh();
+  const columnsActive = [
+    { key: "employee", label: "Employee" },
+    { key: "asset", label: "Asset Type" },
+    { key: "via", label: "Requested Via" },
+    { key: "date", label: "Date Requested" },
+    { key: "notes", label: "Notes" },
+    { key: "actions", label: "Actions" }
+  ];
 
-  } catch (error) {
-    toast.error(error.response?.data?.message || "Failed to delete asset request");
-  }
-};
+  const columnsCompleted = [
+    { key: "employee", label: "Employee" },
+    { key: "asset", label: "Asset Type" },
+    { key: "via", label: "Requested Via" },
+    { key: "approvedBy", label: "Approved By" },
+    { key: "approvedOn", label: "Approved On" },
+    { key: "notes", label: "Notes" }
+  ];
 
   return (
+    <>
 
-<>
-    <h2>Active Requests</h2>
+      {/* ACTIVE REQUESTS */}
+      <h2>Active Requests</h2>
 
-    <table border="1" cellPadding="8">
-
-    <thead>
-        <tr>
-        <th>Employee</th>
-        <th>Asset Type</th>
-        <th>Requested Via</th>
-        <th>Date Requested</th>
-        <th>Notes</th>
-        <th>Actions</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        {activeRequests.map(request => (
-
-        <tr key={request.Id}>
+      <DataTable
+        columns={columnsActive}
+        data={activeRequests}
+        emptyMessage="No active requests"
+        renderRow={(request) => (
+          <tr key={request.Id}>
 
             <td>
-                <Link to={`/employees/${request.EmployeeId}`}>
-                    {request.EmployeeName}
-                </Link>
+              <Link to={`/employees/${request.EmployeeId}`}>
+                {request.EmployeeName}
+              </Link>
             </td>
 
             <td>{request.AssetTypeName}</td>
@@ -68,80 +78,60 @@ const handleDelete = async (id) => {
 
             <td>{request.Notes}</td>
 
-            <td>
+            <td style={{ display: "flex", gap: "8px" }}>
 
-            <button
-                onClick={() =>
-                handleComplete(request.Id)
-                }
-            >
+              <button
+                className="btn btn-secondary"
+                onClick={() => handleComplete(request.Id)}
+              >
                 Complete
-            </button>
+              </button>
 
-            <button
-                onClick={() =>
-                handleDelete(request.Id)
-                }
-            >
+              <button
+                className="btn btn-danger"
+                onClick={() => setDeleteId(request.Id)}
+              >
                 Delete
-            </button>
+              </button>
 
             </td>
 
-        </tr>
+          </tr>
+        )}
+      />
 
-        ))}
+      <br /><br />
 
-    </tbody>
-    </table>
+      {/* COMPLETED REQUESTS */}
+      <h2>Completed Requests</h2>
 
-    <br />
-    <br />
-
-    <h2>Completed Requests</h2>
-
-    <table border="1" cellPadding="8">
-
-    <thead>
-        <tr>
-        <th>Employee</th>
-        <th>Asset Type</th>
-        <th>Requested Via</th>
-        <th>Approved By</th>
-        <th>Approved On</th>
-        <th>Notes</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        {completedRequests.map(request => (
-
-        <tr key={request.Id}>
+      <DataTable
+        columns={columnsCompleted}
+        data={completedRequests}
+        emptyMessage="No completed requests"
+        renderRow={(request) => (
+          <tr key={request.Id}>
 
             <td>{request.EmployeeName}</td>
-
             <td>{request.AssetTypeName}</td>
-
             <td>{request.RequestedVia}</td>
-
             <td>{request.ApprovedBy}</td>
-
             <td>{request.ApprovedOn}</td>
-
             <td>{request.Notes}</td>
 
-        </tr>
+          </tr>
+        )}
+      />
 
-        ))}
+      {/* CONFIRM MODAL */}
+      <ConfirmModal
+        isOpen={!!deleteId}
+        title="Delete Asset Request"
+        message="Are you sure you want to delete this request?"
+        onCancel={() => setDeleteId(null)}
+        onConfirm={handleDelete}
+      />
 
-    </tbody>
-
-    </table>
-</>
-
+    </>
   );
-
 }
-
-

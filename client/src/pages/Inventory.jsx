@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Layout from "../components/layout/Layout";
 import { getInventory } from "../api/inventoryApi";
 import InventoryForm from "../components/inventory/InventoryForm";
 import { getAssetTypes } from "../api/assetTypeApi";
@@ -37,7 +36,7 @@ const filteredInventory = selectedAssetType ? inventory.filter(item => item.Asse
 
 
   return (
-    <Layout>
+    <>
 
       <h1>Inventory</h1>
 
@@ -104,7 +103,7 @@ const filteredInventory = selectedAssetType ? inventory.filter(item => item.Asse
 
       </table>
 
-    </Layout>
+    </>
   );
 
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/layout/Layout";
 import UserForm from "../components/users/UserForm";
 import UserTable from "../components/users/UserTable";
 import { getUsers } from "../api/userApi";
@@ -25,7 +24,7 @@ export default function Users() {
 
   return (
 
-    <Layout>
+    <>
 
       <h1>
         Users
@@ -53,6 +52,6 @@ export default function Users() {
           loadUsers
         }
       />
-    </Layout>
+    </>
   );
 }

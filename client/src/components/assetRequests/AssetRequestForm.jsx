@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { getEmployees } from "../../api/employeeApi";
 import { getAssetTypes } from "../../api/assetTypeApi";
 import { createAssetRequest } from "../../api/assetRequestApi";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
+import "../../styles/forms.css";
 
-export default function AssetRequestForm({ onCreated}) {
+export default function AssetRequestForm({ onCreated }) {
 
   const [employees, setEmployees] = useState([]);
   const [assetTypes, setAssetTypes] = useState([]);
@@ -17,166 +18,127 @@ export default function AssetRequestForm({ onCreated}) {
   });
 
   useEffect(() => {
-
     const loadData = async () => {
-
-      const employeeData =
-        await getEmployees();
-
-      const assetTypeData =
-        await getAssetTypes();
+      const employeeData = await getEmployees();
+      const assetTypeData = await getAssetTypes();
 
       setEmployees(employeeData);
       setAssetTypes(assetTypeData);
-
     };
 
     loadData();
-
   }, []);
 
-  
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  try {
-    await createAssetRequest({
+  const handleChange = (e) => {
+    setForm({
       ...form,
-      DateOfRequest: new Date().toISOString()
+      [e.target.name]: e.target.value
     });
+  };
 
-    toast.success("Asset request created successfully");
-    onCreated();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  } catch (error) {
-    toast.error(error.response?.data?.message || "Failed to create asset request");
-  }
-};
+    try {
+      await createAssetRequest({
+        ...form,
+        DateOfRequest: new Date().toISOString()
+      });
 
+      toast.success("Asset request created successfully");
+      onCreated();
 
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to create asset request"
+      );
+    }
+  };
 
-
-
-  return (
-
-    <form onSubmit={handleSubmit}>
+    return (
+    <div className="card">
 
       <h3>Create Request</h3>
 
-      <select
-        value={form.EmployeeId}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            EmployeeId: e.target.value
-          })
-        }
-        required
-      >
+      <form className="form" onSubmit={handleSubmit}>
 
-        <option value="">
-          Select Employee
-        </option>
-
-        {employees.map(employee => (
-
-          <option
-            key={employee.Id}
-            value={employee.Id}
+        {/* Employee */}
+        <div className="form-group">
+          <label>Employee</label>
+          <select
+            name="EmployeeId"
+            value={form.EmployeeId}
+            onChange={handleChange}
+            className="form-select"
+            required
           >
-            {employee.FirstName} {employee.LastName}
-          </option>
+            <option value="">Select Employee</option>
 
-        ))}
+            {employees.map((employee) => (
+              <option key={employee.Id} value={employee.Id}>
+                {employee.FirstName} {employee.LastName}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      </select>
-
-      <br />
-      <br />
-
-      <select
-        value={form.AssetTypeId}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            AssetTypeId: e.target.value
-          })
-        }
-        required
-      >
-
-        <option value="">
-          Select Asset Type
-        </option>
-
-        {assetTypes.map(type => (
-
-          <option
-            key={type.Id}
-            value={type.Id}
+        {/* Asset Type */}
+        <div className="form-group">
+          <label>Asset Type</label>
+          <select
+            name="AssetTypeId"
+            value={form.AssetTypeId}
+            onChange={handleChange}
+            className="form-select"
+            required
           >
-            {type.Name}
-          </option>
+            <option value="">Select Asset Type</option>
 
-        ))}
+            {assetTypes.map((type) => (
+              <option key={type.Id} value={type.Id}>
+                {type.Name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      </select>
+        {/* Requested Via */}
+        <div className="form-group">
+          <label>Requested Via</label>
 
-      <br />
-      <br />
+          <select
+            name="RequestedVia"
+            value={form.RequestedVia}
+            onChange={handleChange}
+            className="form-select"
+          >
+            <option value="">Requested Via</option>
+            <option value="Email">Email</option>
+            <option value="Teams">Teams</option>
+            <option value="Verbal">Verbal</option>
+          </select>
+        </div>
 
-      <select
-        value={form.RequestedVia}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            RequestedVia: e.target.value
-          })
-        }
-      >
+        {/* Notes */}
+        <div className="form-group">
+          <label>Notes</label>
 
-        <option value="">
-          Requested Via
-        </option>
+          <textarea
+            name="Notes"
+            value={form.Notes}
+            onChange={handleChange}
+            className="form-textarea"
+          />
+        </div>
 
-        <option value="Email">
-          Email
-        </option>
+        {/* Actions */}
+        <div className="form-actions">
+          <button className="btn btn-primary" type="submit">
+            Create Request
+          </button>
+        </div>
 
-        <option value="Teams">
-          Teams
-        </option>
-
-        <option value="Verbal">
-          Verbal
-        </option>
-
-      </select>
-
-      <br />
-      <br />
-
-      <textarea
-        placeholder="Notes"
-        value={form.Notes}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            Notes: e.target.value
-          })
-        }
-      />
-
-      <br />
-      <br />
-
-      <button type="submit">
-        Create Request
-      </button>
-
-    </form>
-
+      </form>
+    </div>
   );
-
 }

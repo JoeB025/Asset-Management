@@ -1,81 +1,61 @@
-import { useEffect, useState } from "react";
-import { getDashboard } from "../api/dashboardApi";
-import Layout from "../components/layout/Layout";
+import StatCard from "../components/ui/StatCard";
+import "../styles/dashboard.css";
+import PageHeader from "../components/ui/PageHeader";
 
 export default function Dashboard() {
-
-  const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-
-    const loadDashboard = async () => {
-
-      try {
-
-        const data = await getDashboard();
-        setStats(data);
-
-      } catch (error) {
-
-        console.error("Dashboard load failed", error);
-
-      } finally {
-
-        setLoading(false);
-
-      }
-
-    };
-
-    loadDashboard();
-
-  }, []);
-
-  if (loading) {
-    return <h2>Loading dashboard...</h2>;
-  }
-
   return (
+    <div className="app-page">
 
-    <Layout>
-    {    
-    <div>
-      <h1>Dashboard</h1>
+      <PageHeader
+        title="Dashboard"
+        subtitle="Overview of your inventory system"
+      />
 
-      <div>
-        <h3>Total Assets</h3>
-        <p>{stats?.totalAssets}</p>
+      {/* KPI CARDS */}
+      <div className="dashboard-grid">
+
+        <StatCard
+          title="Total Users"
+          value="128"
+          subtitle="Active system users"
+          icon="👤"
+          color="primary"
+        />
+
+        <StatCard
+          title="Employees"
+          value="54"
+          subtitle="Registered employees"
+          icon="🏢"
+          color="success"
+        />
+
+        <StatCard
+          title="Assets"
+          value="312"
+          subtitle="Total inventory items"
+          icon="💻"
+          color="primary"
+        />
+
+        <StatCard
+          title="Pending Requests"
+          value="7"
+          subtitle="Awaiting approval"
+          icon="📩"
+          color="warning"
+        />
+
       </div>
 
-      <div>
-        <h3>Assigned Assets</h3>
-        <p>{stats?.assignedAssets}</p>
-      </div>
-
-      <div>
-        <h3>Unassigned Assets</h3>
-        <p>{stats?.unassignedAssets}</p>
-      </div>
-
-      <div>
-        <h3>Deleted Assets</h3>
-        <p>{stats?.deletedAssets}</p>
-      </div>
-
-      <div>
-        <h3>Employees</h3>
-        <p>{stats?.employees}</p>
-      </div>
-
-      <div>
-        <h3>Asset Types</h3>
-        <p>{stats?.assetTypes}</p>
+      {/* OPTIONAL SECOND ROW */}
+      <div className="card">
+        <h2>Recent Activity</h2>
+        <p className="page-subtitle">
+          (We’ll turn this into a real activity feed later)
+        </p>
       </div>
 
     </div>
-
-    }
-    </Layout>
   );
 }

@@ -72,7 +72,7 @@ export default function EmployeeDetails() {
   }
 
   return (
-    <Layout>
+    <>
       <h1>
         {employee.FirstName} {employee.LastName}
       </h1>
@@ -152,6 +152,6 @@ export default function EmployeeDetails() {
 
 
 
-    </Layout>
+    </>
   );
 }

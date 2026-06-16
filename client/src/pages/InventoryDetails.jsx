@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Layout from "../components/layout/Layout";
 import InventoryHistory from "../components/inventory/InventoryHistory";
 import { getInventoryItem, deleteInventoryItem } from "../api/inventoryApi";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify"; 
 
 
 
@@ -28,28 +28,19 @@ export default function InventoryDetails() {
 
 const handleDelete = async () => {
 
-  const confirmed = window.confirm(
-    "Are you sure you want to delete this asset?"
-  );
+  const confirmed = window.confirm("Are you sure you want to delete this asset?");
 
   if (!confirmed) {
     return;
   }
 
   try {
-
     await deleteInventoryItem(asset.Id);
-
-    alert("Asset deleted");
-
+    toast.success("Asset Deleted"); 
     navigate("/inventory");
 
   } catch (error) {
-
-    console.error(error);
-
-    alert("Failed to delete asset");
-
+     toast.error(error.response?.data?.message || "Failed to delete the asset");
   }
 
 };
@@ -57,9 +48,9 @@ const handleDelete = async () => {
 
   if (!asset) {
     return (
-      <Layout>
+      <>
         <h1>Loading...</h1>
-      </Layout>
+      </>
     );
 
   }
@@ -67,7 +58,7 @@ const handleDelete = async () => {
 
 
   return (
-    <Layout>
+    <>
 
       <h1>
         {asset.AssetTypeName}      
@@ -117,7 +108,7 @@ const handleDelete = async () => {
         inventoryId={asset.Id}
       />
 
-    </Layout>
+    </>
   );
 
 }

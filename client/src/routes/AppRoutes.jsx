@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
@@ -7,40 +6,46 @@ import Employees from "../pages/Employees";
 import Inventory from "../pages/Inventory";
 import AssetTypes from "../pages/AssetTypes";
 import EmployeeDetails from "../pages/EmployeeDetails";
-import InventoryDetails from "../pages/InventoryDetails"; 
+import InventoryDetails from "../pages/InventoryDetails";
 import DeletedInventory from "../pages/DeletedInventory";
 import AssetRequests from "../pages/AssetRequests";
-import Users from "../pages/Users"; 
+import Users from "../pages/Users";
+import Layout from "../components/layout/layout";
+
+function AppLayout({ children }) {
+  return (
+    <Layout>
+      {children}
+    </Layout>
+  );
+}
 
 export default function AppRoutes() {
   return (
     <Routes>
 
-      <Route
-        path="/login"
-        element={<Login />}
-      />
+      {/* PUBLIC ROUTES */}
+      <Route path="/login" element={<Login />} />
 
+      {/* PROTECTED + LAYOUT WRAPPED ROUTES */}
       <Route
         path="/"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <AppLayout>
+              <Dashboard />
+            </AppLayout>
           </ProtectedRoute>
         }
       />
 
       <Route
-        path="*"
-        element={<Navigate to="/" replace />}
-      />
-
-
-      <Route
         path="/employees"
         element={
           <ProtectedRoute>
-            <Employees />
+            <AppLayout>
+              <Employees />
+            </AppLayout>
           </ProtectedRoute>
         }
       />
@@ -49,7 +54,9 @@ export default function AppRoutes() {
         path="/inventory"
         element={
           <ProtectedRoute>
-            <Inventory />
+            <AppLayout>
+              <Inventory />
+            </AppLayout>
           </ProtectedRoute>
         }
       />
@@ -58,7 +65,9 @@ export default function AppRoutes() {
         path="/asset-types"
         element={
           <ProtectedRoute>
-            <AssetTypes />
+            <AppLayout>
+              <AssetTypes />
+            </AppLayout>
           </ProtectedRoute>
         }
       />
@@ -67,51 +76,59 @@ export default function AppRoutes() {
         path="/employees/:id"
         element={
           <ProtectedRoute>
-            <EmployeeDetails />
+            <AppLayout>
+              <EmployeeDetails />
+            </AppLayout>
           </ProtectedRoute>
         }
       />
-
 
       <Route
         path="/inventory/:id"
         element={
           <ProtectedRoute>
-            <InventoryDetails />
-          </ProtectedRoute>
-      }
-      />
-
-      <Route 
-        path="/deleted-assets"
-        element={
-          <ProtectedRoute>
-            <DeletedInventory />
+            <AppLayout>
+              <InventoryDetails />
+            </AppLayout>
           </ProtectedRoute>
         }
       />
 
+      <Route
+        path="/deleted-assets"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <DeletedInventory />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/asset-requests"
         element={
           <ProtectedRoute>
-            <AssetRequests />
+            <AppLayout>
+              <AssetRequests />
+            </AppLayout>
           </ProtectedRoute>
         }
       />
-
 
       <Route
         path="/users"
         element={
           <ProtectedRoute>
-             <Users />
+            <AppLayout>
+              <Users />
+            </AppLayout>
           </ProtectedRoute>
-         
         }
       />
 
+      {/* fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
 
     </Routes>
   );

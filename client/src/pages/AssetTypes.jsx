@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/layout/Layout";
 
 import {
   getAssetTypes,
@@ -61,7 +60,7 @@ const handleDelete = async (id) => {
 
 
   return (
-    <Layout>
+    <>
 
       <h1>Asset Types</h1>
 
@@ -143,7 +142,7 @@ const handleDelete = async (id) => {
 
   )}
 
-    </Layout>
+    </>
   );
 
 }

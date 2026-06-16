@@ -147,7 +147,7 @@ INSERT INTO LoginUsers
 )
 VALUES
 (1, 'admin@whitehallgroup.co.uk', 'admin', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Admin', 1),
-(2, 'toni.vardy@whitehallgroup.co.uk', 'Tony Vardy', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Compliance', 1),
+(2, 'tony.vardy@whitehallgroup.co.uk', 'Tony Vardy', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Compliance', 1),
 (3, 'itsupport@whitehallgroup.co.uk', 'Jon Kelly-Evans', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'The Master', 1),
 (4, 'joel.garrigan@whitehallgroup.co.uk', 'Joel Garrigan', '$2b$10$qfacMEiLoDc8bZEzHL8wyeyZdz39YgdJ98AJXZICxIu3SDCgR/sGi', 'Human Resources', 1);
 

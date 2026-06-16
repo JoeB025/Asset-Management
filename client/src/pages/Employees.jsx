@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/layout/Layout";
 import EmployeeForm from "../components/employee/EmployeeForm";
 import EmployeeTable from "../components/employee/EmployeeTable";
 import { getEmployees } from "../api/employeeApi";
@@ -39,15 +38,15 @@ export default function Employees() {
 
   if (loading) {
     return (
-      <Layout>
+      <>
         <h1>Employees</h1>
         <p>Loading...</p>
-      </Layout>
+      </>
     );
   }
 
   return (
-    <Layout>
+    <>
       <h1>Employees</h1>
         <button onClick={() => setShowForm(!showForm)}>      
           {showForm ? "Cancel" : "Add Employee"}
@@ -63,6 +62,6 @@ export default function Employees() {
         employees={employees}
         onRefresh={loadEmployees}
       />
-    </Layout>
+    </>
   );
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/layout/Layout";
 import { getDeletedInventory } from "../api/inventoryApi";
 
 export default function DeletedInventory() {
@@ -22,7 +21,7 @@ export default function DeletedInventory() {
   }, []);
 
   return (
-    <Layout>
+    <>
 
       <h1>Deleted Assets</h1>
 
@@ -56,6 +55,6 @@ export default function DeletedInventory() {
 
       </table>
 
-    </Layout>
+    </>
   );
 }
