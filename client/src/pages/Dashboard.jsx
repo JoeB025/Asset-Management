@@ -1,8 +1,35 @@
+import { useEffect, useState } from "react";
 import StatCard from "../components/ui/StatCard";
-import "../styles/dashboard.css";
 import PageHeader from "../components/ui/PageHeader";
+import { getDashboard } from "../api/dashboardApi";
+import Loader from "../components/ui/Loader";
+
+import "../styles/dashboard.css";
 
 export default function Dashboard() {
+
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await getDashboard();
+        setStats(data);
+      } catch (err) {
+        console.error("Dashboard load failed", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
+  }, []);
+
+  if (loading) {
+    return <Loader text="Loading dashboard..." />;
+  }
+
   return (
     <div className="app-page">
 
@@ -15,44 +42,65 @@ export default function Dashboard() {
       <div className="dashboard-grid">
 
         <StatCard
-          title="Total Users"
-          value="128"
-          subtitle="Active system users"
-          icon="👤"
-          color="primary"
-        />
-
-        <StatCard
-          title="Employees"
-          value="54"
-          subtitle="Registered employees"
-          icon="🏢"
-          color="success"
-        />
-
-        <StatCard
-          title="Assets"
-          value="312"
-          subtitle="Total inventory items"
+          title="Total Assets"
+          value={stats.totalAssets}
+          subtitle="All inventory items"
           icon="💻"
           color="primary"
         />
 
         <StatCard
-          title="Pending Requests"
-          value="7"
-          subtitle="Awaiting approval"
-          icon="📩"
+          title="Assigned Assets"
+          value={stats.assignedAssets}
+          subtitle="Currently allocated"
+          icon="📦"
+          color="success"
+        />
+
+        <StatCard
+          title="Unassigned Assets"
+          value={stats.unassignedAssets}
+          subtitle="Available stock"
+          icon="📂"
           color="warning"
+        />
+
+        <StatCard
+          title="Employees"
+          value={stats.employees}
+          subtitle="Active employees"
+          icon="🏢"
+          color="primary"
         />
 
       </div>
 
-      {/* OPTIONAL SECOND ROW */}
+      {/* SECOND ROW */}
+      <div className="dashboard-grid">
+
+        <StatCard
+          title="Deleted Assets"
+          value={stats.deletedAssets}
+          subtitle="Removed from system"
+          icon="🗑️"
+          color="danger"
+        />
+
+        <StatCard
+          title="Asset Types"
+          value={stats.assetTypes}
+          subtitle="Categories in system"
+          icon="🏷️"
+          color="primary"
+        />
+
+      </div>
+
+      {/* PLACEHOLDER SECTION */}
       <div className="card">
         <h2>Recent Activity</h2>
         <p className="page-subtitle">
-          (We’ll turn this into a real activity feed later)
+          (If you get time, turn this into a live feed and show recent additions i.e. new employee added or something yada yada yada...)
         </p>
       </div>
 
