@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createEmployee } from "../../api/employeeApi";
 import { teams } from "../../constants/teams";
 import { jobTitles } from "../../constants/jobTitles";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
 
 export default function EmployeeForm({ onCreated }) {
 
@@ -16,14 +16,12 @@ export default function EmployeeForm({ onCreated }) {
   });
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     try {
-
       await createEmployee(form);
 
-      toast.success("Employee Successfully Created"); 
+      toast.success("Employee successfully created");
 
       setForm({
         FirstName: "",
@@ -37,113 +35,116 @@ export default function EmployeeForm({ onCreated }) {
       onCreated();
 
     } catch (error) {
-
       toast.error(error.response?.data?.message || "Failed to create employee");
-
     }
-
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
+      <h3>Add Employee</h3>
+      <form className="form" onSubmit={handleSubmit}>
 
-      <input
-        placeholder="First Name"
-        value={form.FirstName}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            FirstName: e.target.value
-          })
-        }
-      />
+        {/* FIRST NAME */}
+        <div className="form-group">
+          <label>First Name</label>
+          <input
+            className="form-input"
+            value={form.FirstName}
+            onChange={(e) =>
+              setForm({ ...form, FirstName: e.target.value })
+            }
+            required
+          />
+        </div>
 
-      <input
-        placeholder="Last Name"
-        value={form.LastName}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            LastName: e.target.value
-          })
-        }
-      />
+        {/* LAST NAME */}
+        <div className="form-group">
+          <label>Last Name</label>
+          <input
+            className="form-input"
+            value={form.LastName}
+            onChange={(e) =>
+              setForm({ ...form, LastName: e.target.value })
+            }
+            required
+          />
+        </div>
 
-        <select
-        value={form.JobTitle}
-        onChange={(e) =>
-            setForm({
-            ...form,
-            JobTitle: e.target.value
-            })
-        }
-        >
-        <option value="">
-            Select Job Title
-        </option>
+        {/* JOB TITLE */}
+        <div className="form-group">
+          <label>Job Title</label>
+          <select
+            className="form-select"
+            value={form.JobTitle}
+            onChange={(e) =>
+              setForm({ ...form, JobTitle: e.target.value })
+            }
+            required
+          >
+            <option value="">Select Job Title</option>
+            {jobTitles.map((jobTitle) => (
+              <option key={jobTitle} value={jobTitle}>
+                {jobTitle}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        {jobTitles.map(jobTitle => (
-            <option
-            key={jobTitle}
-            value={jobTitle}
-            >
-            {jobTitle}
-            </option>
-        ))}
-        </select>
+        {/* TEAM */}
+        <div className="form-group">
+          <label>Team</label>
+          <select
+            className="form-select"
+            value={form.Team}
+            onChange={(e) =>
+              setForm({ ...form, Team: e.target.value })
+            }
+            required
+          >
+            <option value="">Select Team</option>
+            {teams.map((team) => (
+              <option key={team} value={team}>
+                {team}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <select
-        value={form.Team}
-        onChange={(e) =>
-            setForm({
-            ...form,
-            Team: e.target.value
-            })
-        }
-        >
-        <option value="">
-            Select Team
-        </option>
+        {/* EMAIL */}
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            className="form-input"
+            type="email"
+            value={form.Email}
+            onChange={(e) =>
+              setForm({ ...form, Email: e.target.value })
+            }
+            required
+          />
+        </div>
 
-        {teams.map(team => (
-            <option
-            key={team}
-            value={team}
-            >
-            {team}
-            </option>
-        ))}
-        </select>
+        {/* WFH */}
+        <div className="form-group">
+          <label style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+            <input
+              type="checkbox"
+              checked={form.WorksFromHome}
+              onChange={(e) =>
+                setForm({ ...form, WorksFromHome: e.target.checked })
+              }
+            />
+            Works From Home
+          </label>
+        </div>
 
-      <input
-        placeholder="Email"
-        value={form.Email}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            Email: e.target.value
-          })
-        }
-      />
-
-      <label>
-        <input
-          type="checkbox"
-          checked={form.WorksFromHome}
-          onChange={(e) =>
-            setForm({
-              ...form,
-              WorksFromHome: e.target.checked
-            })
-          }
-        />
-        Works From Home
-      </label>
-
-      <button type="submit">
-        Add Employee
-      </button>
-
-    </form>
+        {/* ACTIONS */}
+        <div className="form-actions">
+          <button type="submit" className="btn btn-primary">
+            Add Employee
+          </button>
+        </div>
+      </form>
+    </>
   );
 }
