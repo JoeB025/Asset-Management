@@ -35,9 +35,7 @@ export default function Inventory() {
   }, []);
 
   const filteredInventory = selectedAssetType
-    ? inventory.filter(
-        (item) => item.AssetTypeId === Number(selectedAssetType)
-      )
+    ? inventory.filter((item) => item.AssetTypeId === Number(selectedAssetType))
     : inventory;
 
   if (loading) {
@@ -61,10 +59,9 @@ export default function Inventory() {
       />
 
       {/* FILTER BAR */}
-      <div className="card" style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-
-        <div>
-          <label>Asset Type</label>
+      <div className="card" style={{ display: "flex", gap: "24px", alignItems: "flex-center" }}>
+        <div className="form-group">
+          <label>Asset Type Filter</label>
           <select
             className="form-select"
             value={selectedAssetType}
@@ -78,8 +75,8 @@ export default function Inventory() {
             ))}
           </select>
         </div>
-
       </div>
+
 
       {/* FORM */}
       {showForm && (

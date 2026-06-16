@@ -44,111 +44,126 @@ export default function UserForm({ onCreated }) {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
+return (
+    <form
+      className="form"
+      onSubmit={handleSubmit}
+    >
+
       <h3>Create User</h3>
 
-      {/* Employee */}
-      <label>
-        Employee
-      </label>
-      <br />
-      <select
-        value={form.EmployeeId}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            EmployeeId: e.target.value,
-          })
-        }
-      >
-        <option value="">Select Employee</option>
+      <div className="form-group">
 
-        {employees.map((emp) => (
-          <option key={emp.Id} value={emp.Id}>
-            {emp.FirstName} {emp.LastName}
-          </option>
-        ))}
-      </select>
+        <label>Employee</label>
 
-      <br /><br />
+        <select
+          className="form-select"
+          value={form.EmployeeId}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              EmployeeId: e.target.value,
+            })
+          }
+        >
+          <option value="">Select Employee</option>
 
-      {/* Email */}
-      <label>
-        Email Address
-      </label>
-      <br />
-      <input
-        type="email"
-        value={form.EmailAddress}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            EmailAddress: e.target.value,
-          })
-        }
-      />
+          {employees.map((emp) => (
+            <option
+              key={emp.Id}
+              value={emp.Id}
+            >
+              {emp.FirstName} {emp.LastName}
+            </option>
+          ))}
+        </select>
 
-      <br /><br />
+      </div>
 
-      {/* Display Name */}
-      <label>
-        Display Name
-      </label>
-      <br />
-      <input
-        value={form.Username}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            Username: e.target.value,
-          })
-        }
-      />
+      <div className="form-group">
 
-      <br /><br />
+        <label>Email Address</label>
 
-      {/* Password */}
-      <label>
-        Password
-      </label>
-      <br />
-      <input
-        type="password"
-        value={form.Password}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            Password: e.target.value,
-          })
-        }
-      />
+        <input
+          className="form-input"
+          type="email"
+          value={form.EmailAddress}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              EmailAddress: e.target.value,
+            })
+          }
+        />
 
-      <br /><br />
+      </div>
 
-      {/* Role */}
-      <label>
-        Role
-      </label>
-      <br />
-      <select
-        value={form.Role}
-        onChange={(e) =>
-          setForm({
-            ...form,
-            Role: e.target.value,
-          })
-        }
-      >
-        <option value="User">User</option>
-        <option value="Admin">Admin</option>
-      </select>
+      <div className="form-group">
 
-      <br /><br />
+        <label>Display Name</label>
 
-      <button type="submit">
-        Create User
-      </button>
+        <input
+          className="form-input"
+          value={form.Username}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              Username: e.target.value,
+            })
+          }
+        />
+
+      </div>
+
+      <div className="form-group">
+
+        <label>Password</label>
+
+        <input
+          className="form-input"
+          type="password"
+          value={form.Password}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              Password: e.target.value,
+            })
+          }
+        />
+
+      </div>
+
+      <div className="form-group">
+
+        <label>Role</label>
+
+        <select
+          className="form-select"
+          value={form.Role}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              Role: e.target.value,
+            })
+          }
+        >
+          <option value="User">User</option>
+          <option value="Admin">Admin</option>
+        </select>
+
+      </div>
+
+      <div className="form-actions">
+
+        <button
+          type="submit"
+          className="btn btn-primary"
+        >
+          Create User
+        </button>
+
+      </div>
+
     </form>
   );
 }

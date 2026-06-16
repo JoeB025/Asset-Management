@@ -79,15 +79,21 @@ export default function InventoryForm({ onCreated }) {
   };
 
   return (
+  <div className="card">
 
-    <form onSubmit={handleSubmit}>
+    <form
+      className="form"
+      onSubmit={handleSubmit}
+    >
 
       <h3>Add Asset</h3>
 
-      <div>
+      <div className="form-group">
 
         <label>Asset Tag</label>
+
         <input
+          className="form-input"
           type="text"
           name="AssetTag"
           value={formData.AssetTag}
@@ -96,51 +102,46 @@ export default function InventoryForm({ onCreated }) {
         />
 
         {error && (
-          <p style={{ color: "red", marginTop: "10px" }}> {error}</p>
+          <p style={{ color: "red" }}>
+            {error}
+          </p>
         )}
 
       </div>
 
-      <br />
-
-      <div>
+      <div className="form-group">
 
         <label>Asset Type</label>
 
         <select
+          className="form-select"
           name="AssetTypeId"
           value={formData.AssetTypeId}
           onChange={handleChange}
           required
         >
-
           <option value="">
             Select Asset Type
           </option>
-          
 
           {assetTypes.map(type => (
-
             <option
               key={type.Id}
               value={type.Id}
             >
               {type.Name}
             </option>
-
           ))}
-
         </select>
 
       </div>
 
-      <br />
-
-      <div>
+      <div className="form-group">
 
         <label>Manufacturer</label>
 
         <input
+          className="form-input"
           type="text"
           name="Manufacturer"
           value={formData.Manufacturer}
@@ -149,13 +150,12 @@ export default function InventoryForm({ onCreated }) {
 
       </div>
 
-      <br />
-
-      <div>
+      <div className="form-group">
 
         <label>Serial Number</label>
 
         <input
+          className="form-input"
           type="text"
           name="SerialNumber"
           value={formData.SerialNumber}
@@ -164,13 +164,12 @@ export default function InventoryForm({ onCreated }) {
 
       </div>
 
-      <br />
-
-      <div>
+      <div className="form-group">
 
         <label>Purchase Date</label>
 
         <input
+          className="form-input"
           type="date"
           name="PurchaseDate"
           value={formData.PurchaseDate}
@@ -179,13 +178,12 @@ export default function InventoryForm({ onCreated }) {
 
       </div>
 
-      <br />
-
-      <div>
+      <div className="form-group">
 
         <label>Notes</label>
 
         <textarea
+          className="form-textarea"
           name="Notes"
           value={formData.Notes}
           onChange={handleChange}
@@ -193,14 +191,20 @@ export default function InventoryForm({ onCreated }) {
 
       </div>
 
-      <br />
+      <div className="form-actions">
 
-      <button type="submit">
-        Create Asset
-      </button>
+        <button
+          type="submit"
+          className="btn btn-primary"
+        >
+          Create Asset
+        </button>
+
+      </div>
 
     </form>
 
-  );
+  </div>
+);
 
 }

@@ -100,7 +100,16 @@ export default function Dashboard() {
       <div className="card">
         <h2>Recent Activity</h2>
         <p className="page-subtitle">
-          (If you get time, turn this into a live feed and show recent additions i.e. new employee added or something yada yada yada...)
+          <ul>
+            <li>Turn this section into a live feed and show recent additions i.e new employees added or something yada yada yada</li>
+            <li>Add links to the dashboard to the relevant pages.</li>
+            <li>Add in a page to show all unassigned assets and a link to it</li>
+            <li>Add in a page to all the assigned Assets</li>
+            <li>Add in something to say ... We do not have enough of x asset?</li>
+            <li>Fix the Logout text - Should show users name.</li>
+            <li>Create a page for the users so email addresses / names can be edited</li>
+            <li>Add in a branding logo somewhere</li>
+          </ul>
         </p>
       </div>
 
