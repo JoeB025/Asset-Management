@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createUser } from "../../api/userApi";
 import { getEmployees } from "../../api/employeeApi";
+import { toast } from "react-toastify";
 
 export default function UserForm({ onCreated }) {
   const [employees, setEmployees] = useState([]);
@@ -27,6 +28,7 @@ export default function UserForm({ onCreated }) {
 
     try {
       await createUser(form);
+      toast.success("User created successfully");
 
       setForm({
         EmployeeId: "",
@@ -38,7 +40,7 @@ export default function UserForm({ onCreated }) {
 
       onCreated();
     } catch (err) {
-      alert(err.response?.data?.message || "Failed to create user");
+      toast.error(err.response?.data?.message || "Failed to create user");
     }
   };
 

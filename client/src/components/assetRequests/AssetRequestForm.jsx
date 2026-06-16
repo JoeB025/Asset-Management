@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getEmployees } from "../../api/employeeApi";
 import { getAssetTypes } from "../../api/assetTypeApi";
 import { createAssetRequest } from "../../api/assetRequestApi";
+import { toast } from "react-toastify"; 
 
 export default function AssetRequestForm({ onCreated}) {
 
@@ -34,22 +35,28 @@ export default function AssetRequestForm({ onCreated}) {
 
   }, []);
 
-  const handleSubmit = async (e) => {
+  
 
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
+  try {
     await createAssetRequest({
-
       ...form,
-
-      DateOfRequest:
-        new Date().toISOString()
-
+      DateOfRequest: new Date().toISOString()
     });
 
+    toast.success("Asset request created successfully");
     onCreated();
 
-  };
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Failed to create asset request");
+  }
+};
+
+
+
+
 
   return (
 

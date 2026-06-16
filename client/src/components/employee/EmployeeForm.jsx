@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createEmployee } from "../../api/employeeApi";
 import { teams } from "../../constants/teams";
 import { jobTitles } from "../../constants/jobTitles";
+import { toast } from "react-toastify"; 
 
 export default function EmployeeForm({ onCreated }) {
 
@@ -22,6 +23,8 @@ export default function EmployeeForm({ onCreated }) {
 
       await createEmployee(form);
 
+      toast.success("Employee Successfully Created"); 
+
       setForm({
         FirstName: "",
         LastName: "",
@@ -35,7 +38,7 @@ export default function EmployeeForm({ onCreated }) {
 
     } catch (error) {
 
-      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to create employee");
 
     }
 

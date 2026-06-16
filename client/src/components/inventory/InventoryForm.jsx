@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { toast } from "react-toastify";
 import { createInventoryItem } from "../../api/inventoryApi";
 import { getAssetTypes } from "../../api/assetTypeApi";
 
@@ -48,7 +48,7 @@ export default function InventoryForm({ onCreated }) {
     try {
           await createInventoryItem({
 
-      ...formData,
+      ...formData,  
 
       Status: "Active",
       Condition: "New",
@@ -56,6 +56,8 @@ export default function InventoryForm({ onCreated }) {
       AssignedEmployeeId: null,
       DateAssigned: null
     });
+
+     toast.success("Asset created successfully");
 
     setFormData({
       AssetTag: "",
@@ -68,11 +70,11 @@ export default function InventoryForm({ onCreated }) {
 
     onCreated();
     } catch (error) {
-      console.error(error); 
+    
+      const message = error.response?.data?.message || "Failed to create asset";
+      toast.error(message);
+      setError(message);
 
-      setError(
-        error.response?.data?.message || "Failed to create asset"
-      ); 
     }
   };
 

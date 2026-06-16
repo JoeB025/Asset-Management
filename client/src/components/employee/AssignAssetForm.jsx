@@ -26,7 +26,6 @@ export default function AssignAssetForm({ employeeId, onAssigned}) {
 useEffect(() => {
 
   if (!selectedAssetType) return;
-  console.log("Selected Asset Type:", selectedAssetType);
 
   const loadAssets = async () => {
 
@@ -34,9 +33,6 @@ useEffect(() => {
       await getAvailableInventoryByAssetType(
         selectedAssetType
       );
-
-    console.log("Available assets response:", data);
-
     setAssets(data);
 
   };

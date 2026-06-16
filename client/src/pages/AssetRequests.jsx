@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-
 import Layout from "../components/layout/Layout";
-
 import AssetRequestForm from "../components/assetRequests/AssetRequestForm";
 import AssetRequestTable from "../components/assetRequests/AssetRequestTable";
-
 import { getAssetRequests } from "../api/assetRequestApi";
+import { toast } from "react-toastify"; 
 
 export default function AssetRequests() {
 
@@ -18,19 +16,14 @@ export default function AssetRequests() {
     try {
 
       const data = await getAssetRequests();
-
       setRequests(data);
 
     } catch (error) {
-
-      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to load asset requests");
 
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
   useEffect(() => {
@@ -53,38 +46,25 @@ export default function AssetRequests() {
   return (
 
     <Layout>
-
       <h1>Asset Requests</h1>
-
-      <button
-        onClick={() => setShowForm(!showForm)}
-      >
-        {showForm
-          ? "Cancel"
-          : "New Request"}
+      <button onClick={() => setShowForm(!showForm)}>
+        {showForm ? "Cancel" : "New Request"}
       </button>
-
       <br />
       <br />
-
       {showForm && (
-
         <AssetRequestForm
           onCreated={() => {
             setShowForm(false);
             loadRequests();
           }}
         />
-
       )}
-
       <AssetRequestTable
         requests={requests}
         onRefresh={loadRequests}
       />
-
     </Layout>
-
+    
   );
-
 }

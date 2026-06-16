@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { resetPassword } from "../../api/userApi";
+import { toast } from "react-toastify";
 
 export default function ResetPasswordForm({ userId, onClose }) {
 
@@ -11,8 +12,7 @@ export default function ResetPasswordForm({ userId, onClose }) {
       e.preventDefault();
       
       await resetPassword(userId, password);
-
-      alert("Password updated");
+      toast.success("Password updated");
       onClose();
     };
 

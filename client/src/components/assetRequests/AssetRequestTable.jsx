@@ -1,5 +1,6 @@
 import { completeAssetRequest, deleteAssetRequest } from "../../api/assetRequestApi";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify"; 
 
 export default function AssetRequestTable({requests, onRefresh}) {
 
@@ -14,19 +15,20 @@ export default function AssetRequestTable({requests, onRefresh}) {
 
   };
 
-  const handleDelete = async (id) => {
+const handleDelete = async (id) => {
+  if (!window.confirm("Delete request?")) {
+    return;
+  }
 
-    if (!window.confirm(
-      "Delete request?"
-    )) {
-      return;
-    }
-
+  try {
     await deleteAssetRequest(id);
-
+    toast.success("Asset request deleted successfully");
     onRefresh();
 
-  };
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Failed to delete asset request");
+  }
+};
 
   return (
 
