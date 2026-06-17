@@ -12,6 +12,7 @@ import AssetRequests from "../pages/AssetRequests";
 import Users from "../pages/Users";
 import Layout from "../components/layout/layout";
 import UnassignedAssets from "../pages/UnassignedAssets";
+import AssignedAssets from "../pages/AssignedAssets";
 
 function AppLayout({ children }) {
   return (
@@ -136,6 +137,18 @@ export default function AppRoutes() {
           <ProtectedRoute>
             <AppLayout>
               <UnassignedAssets /> 
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
+
+      <Route 
+        path="/inventory/assigned"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <AssignedAssets/> 
             </AppLayout>
           </ProtectedRoute>
         }

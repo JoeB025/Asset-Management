@@ -350,6 +350,88 @@ const getDeletedInventory = () => {
 };
 
 
+// get all assigned inventory with asset types. 
+const getAllAssignedInventory = () => {
+  return new Promise((resolve, reject) => {
+
+    const sql = `
+      SELECT
+        I.*,
+        E.FirstName || ' ' || E.LastName AS EmployeeName,
+        AT.Name AS AssetTypeName
+      FROM Inventory I
+      LEFT JOIN Employees E
+        ON I.AssignedEmployeeId = E.Id
+      LEFT JOIN AssetTypes AT
+        ON I.AssetTypeId = AT.Id
+      WHERE
+        I.AssignedEmployeeId IS NOT NULL
+        AND I.Status <> 'Deleted'
+      ORDER BY
+        EmployeeName,
+        I.AssetTag
+    `;
+
+    db.all(sql, [], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+
+  });
+};
+
+
+// get all assigned inventory filtered 
+const getAssignedInventoryFiltered = (
+  employeeId,
+  assetTypeId
+) => {
+  return new Promise((resolve, reject) => {
+
+    let sql = `
+      SELECT
+        I.*,
+        E.FirstName || ' ' || E.LastName AS EmployeeName,
+        AT.Name AS AssetTypeName
+      FROM Inventory I
+      LEFT JOIN Employees E
+        ON I.AssignedEmployeeId = E.Id
+      LEFT JOIN AssetTypes AT
+        ON I.AssetTypeId = AT.Id
+      WHERE
+        I.AssignedEmployeeId IS NOT NULL
+        AND I.Status <> 'Deleted'
+    `;
+
+    const params = [];
+
+    if (employeeId) {
+      sql += `
+        AND I.AssignedEmployeeId = ?
+      `;
+      params.push(employeeId);
+    }
+
+    if (assetTypeId) {
+      sql += `
+        AND I.AssetTypeId = ?
+      `;
+      params.push(assetTypeId);
+    }
+
+    sql += `
+      ORDER BY EmployeeName, I.AssetTag
+    `;
+
+    db.all(sql, params, (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+
+  });
+};
+
+
 module.exports = {
   getAllInventory,
   getInventoryItemById,
@@ -362,5 +444,7 @@ module.exports = {
   getAvailableInventory,
   getAvailableInventoryByAssetTypeId,
   returnInventoryItem,
-  getDeletedInventory
+  getDeletedInventory,
+  getAllAssignedInventory,
+  getAssignedInventoryFiltered
 };

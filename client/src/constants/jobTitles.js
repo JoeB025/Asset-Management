@@ -12,5 +12,6 @@ export const jobTitles = [
   "Pension Administrator",
   "Property Technical Executive",
   "Team Leader",
-  "Technical Manager"
+  "Technical Manager",
+  "Software Architect"  
 ];

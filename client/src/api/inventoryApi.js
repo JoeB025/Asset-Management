@@ -59,3 +59,22 @@ export const reassignInventoryItem = async (data) => {
   const response = await api.post("/inventory/reassign", data); 
   return response.data; 
 }
+
+export const getAssignedInventory = async () => {
+  const response = await api.get("/inventory/assigned");
+  return response.data;
+};
+
+
+export const getAssignedInventoryFiltered = async (employeeId, assetTypeId) => {
+  const response = await api.get("/inventory/assigned/filter", 
+    {
+      params: {
+        employeeId,
+        assetTypeId
+      }
+    }
+  );
+  return response.data;
+};
+

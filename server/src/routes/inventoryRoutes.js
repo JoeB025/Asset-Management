@@ -15,7 +15,9 @@ const {
   getAvailableInventory,
   getAvailableInventoryByAssetTypeId,
   returnInventoryItem,
-  getDeletedInventory
+  getDeletedInventory,
+  getAllAssignedInventory,
+  getAssignedInventoryFiltered
  
 } = require("../services/inventoryService");
 
@@ -43,6 +45,19 @@ router.get("/available", authMiddleware, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+
+// Get all assigned inventory 
+router.get("/assigned", authMiddleware, async (req, res) => {
+    try {
+      const assets = await getAllAssignedInventory();
+      res.json(assets);
+
+    } catch (err) {
+      res.status(500).json({ message: err.message});
+    }
+  }
+);
 
 
 
@@ -111,6 +126,23 @@ router.get("/history", authMiddleware, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+
+
+
+// Get all inventory filtered 
+router.get("/assigned/filter", authMiddleware, async (req, res) => {
+    try {
+      const assets = await getAssignedInventoryFiltered(req.query.employeeId, req.query.assetTypeId);
+      res.json(assets);
+
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
+);
+
+
 
 
 // Get Available Inventory By Asset Type Id 

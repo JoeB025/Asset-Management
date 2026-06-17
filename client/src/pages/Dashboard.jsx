@@ -52,6 +52,7 @@ export default function Dashboard() {
         />
       </Link>
 
+      <Link to={"/inventory/assigned"}>
         <StatCard
           title="Assigned Assets"
           value={stats.assignedAssets}
@@ -59,6 +60,7 @@ export default function Dashboard() {
           icon="📦"
           color="success"
         />
+      </Link>
 
       <Link to={"/inventory/available"}>
         <StatCard
@@ -109,7 +111,7 @@ export default function Dashboard() {
       {/* PLACEHOLDER SECTION */}
       <div className="card">
         <h2>Recent Activity</h2>
-        <p className="page-subtitle">
+        <p className="page-subtitle"> </p>
           <ul>
             <li>Turn this section into a live feed and show recent additions i.e new employees added or something yada yada yada</li>
             <li>Add links to the dashboard to the relevant pages.</li>
@@ -120,8 +122,7 @@ export default function Dashboard() {
             <li>Create a page for the users so email addresses / names can be edited</li>
             <li>Add in a branding logo somewhere</li>
             <li>Add in downloads so a user can download a form or list - could come in handy to take to a stock room / inventory cupboard or something</li>
-          </ul>
-        </p>
+          </ul> 
       </div>
 
     </div>

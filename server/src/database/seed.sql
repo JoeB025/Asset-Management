@@ -38,20 +38,31 @@ Email,
 IsActive)
 VALUES
 
-('Admin', 'Admin', 'HR Manager', 'Human Resources', 0, 'admin@whitehallgroup.co.uk', 1),
-('Tony', 'Vardy', 'Compliance Manager', 'Compliance', 0, 'toni.vardy@whitehallgroup.co.uk', 1),
-('Jon', 'Kelly-Evans', 'IT Support', 'IT', 0, 'itsupport@whitehallgroup.co.uk', 1),
+('Administration', 'Account', 'Office Administrator', 'Administration', 0, 'admin@whitehallgroup.co.uk', 1),
+('Toni', 'Duckworth', 'Office Administrator', 'Administration', 0, 'Toni.Duckworth@whitehallgroup.co.uk', 1),
+('Jane', 'Davies', 'Director', 'Management', 0, 'jane.davies@whitehallgroup.co.uk', 1), 
+('Richard', 'Mattison', 'Director', 'Management', 0, 'richard.mattison@whitehallgroup.co.uk', 1),
 ('Joel', 'Garrigan', 'HR Manager', 'Human Resources', 0, 'joel.garrigan@whitehallgroup.co.uk', 1),
-('Bugs', 'Bunny', 'HR Manager', 'Human Resources', 0, 'bugs.bunny@test.com', 1),
-('Daffy', 'Duck', 'Compliance Manager', 'Compliance', 0, 'daffy.duck@test.com', 1),
-('Porky', 'Pig', 'IT Support', 'IT', 0, 'porky.pig@test.com', 1),
-('Elmer', 'Fudd', 'Property Technical Executive', 'Property', 1, 'elmer.fudd@test.com', 1),
-('Tweety', 'Bird', 'Office Administrator', 'Administration', 0, 'tweety.bird@test.com', 1),
-('Sylvester', 'Cat', 'Team Leader', 'Management', 1, 'sylvester.cat@test.com', 1),
-('Lola', 'Bunny', 'Client Services Consultant', 'New Business', 1, 'lola.bunny@test.com', 1),
-('Yosemite', 'Sam', 'Director', 'Management', 0, 'yosemite.sam@test.com', 1),
-('Marvin', 'Martian', 'Technical Manager', 'IT', 0, 'marvin.martian@test.com', 1),
-('Foghorn', 'Leghorn', 'Pension Administrator', 'Pensions', 0, 'foghorn.leghorn@test.com', 1);  
+('James', 'Latchford', 'Central Operations Team Leader', 'Finance', 0, 'james.latchford@whitehallgroup.co.uk', 1),
+('Vanessa', 'Peters', 'New Business Administrator', 'New Business', 0, 'vanessa.peters@whitehallgroup.co.uk', 1),
+('Helen', 'White', 'Client Services Consultant', 'Pensions', 0, 'helen.white@whitehallgroup.co.uk', 1),
+('Joshua', 'Molloy', 'Banking and Payroll Officer', 'Finance', 1, 'joshua.molloy@whitehallgroup.co.uk', 1), 
+('Emma', 'Taylor', 'Team Leader', 'Pensions', 0, 'emma.taylor@whitehallgroup.co.uk', 1),
+('Tony', 'Vardy', 'Compliance Manager', 'Compliance', 0, 'tony.vardy@whitehallgroup.co.uk', 1),
+('Suzanne', 'Walker', 'Technical Manager', 'Management', 1, 'suzanne.walker@whitehallgroup.co.uk', 1),
+('Josh', 'Peel', 'Client Services Consultant', 'Pensions', 1, 'josh.peel@whitehallgroup.co.uk', 1),
+('Andrew', 'Gichero', 'Client Services Consultant', 'Management', 1, 'andrew.gichero@whitehallgroup.co.uk', 1),
+('Anya', 'Edyvean', 'Account Manager', 'Pensions', 0, 'anya.edyvean@whitehallgroup.co.uk', 1),
+('Leoni', 'Whitehead', 'Pension Administrator', 'Pensions', 0, 'leoni.whitehead@whitehallgroup.co.uk', 1),
+('Matthew', 'Bolton', 'Pension Administrator', 'Pensions', 0, 'matthew.bolton@whitehallgroup.co.uk', 1),
+('Olivia', 'Healey', 'Pension Administrator', 'Pensions', 0, 'olivia.healey@whitehallgroup.co.uk', 1),
+('Jasmine', 'Howard', 'Pension Administrator', 'Pensions', 0, 'jasmine.howard@whitehallgroup.co.uk', 1),
+('Tegan', 'Lowe', 'Pension Administrator', 'Pensions', 0, 'tegan.lowe@whitehallgroup.co.uk', 1),
+('Paul', 'Dootson', 'New Business Administrator', 'New Business', 0, 'paul.dootson@whitehallgroup.co.uk', 1),
+('Jon', 'Kelly-Evans', 'Software Architect', 'IT', 1, 'itsupport@whitehallgroup.co.uk', 1),
+('Claire', 'Fort', 'Account Manager', 'Pensions', 0, 'claire.fort@whitehallgroup.co.uk', 1),
+('Victoria', 'Edwards', 'New Business Administrator', 'New Business', 0, 'victoria.edwards@whitehallgroup.co.uk', 1); 
+
 
 -- Inventory
 INSERT INTO Inventory (
