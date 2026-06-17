@@ -9,7 +9,8 @@ const inventoryRoutes = require("./routes/inventoryRoutes");
 const employeeRoutes = require("./routes/employeeRoutes");
 const assetTypeRoutes = require("./routes/assetTypeRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
-const assetRequests = require("./routes/assetRequestRoutes"); 
+const assetRequests = require("./routes/assetRequestRoutes");
+const exportRoutes = require("./routes/exportRoutes"); 
 
 app.use(cors());
 app.use(express.json());
@@ -20,7 +21,8 @@ app.use("/api/inventory", inventoryRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/asset-types", assetTypeRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/assetRequests", assetRequests); 
+app.use("/api/assetRequests", assetRequests);
+app.use("/api/exports", exportRoutes);  
 
 app.get("/", (req, res) => {
   res.json({ message: "Inventory API running" });

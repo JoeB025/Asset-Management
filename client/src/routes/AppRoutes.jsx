@@ -1,7 +1,183 @@
+// import { Routes, Route, Navigate } from "react-router-dom";
+// import Login from "../pages/Login";
+// import Dashboard from "../pages/Dashboard";
+// import ProtectedRoute from "./ProtectedRoute";
+// import Employees from "../pages/Employees";
+// import Inventory from "../pages/Inventory";
+// import AssetTypes from "../pages/AssetTypes";
+// import EmployeeDetails from "../pages/EmployeeDetails";
+// import InventoryDetails from "../pages/InventoryDetails";
+// import DeletedInventory from "../pages/DeletedInventory";
+// import AssetRequests from "../pages/AssetRequests";
+// import Users from "../pages/Users";
+// import Layout from "../components/layout/layout";
+// import UnassignedAssets from "../pages/UnassignedAssets";
+// import AssignedAssets from "../pages/AssignedAssets";
+
+// function AppLayout({ children }) {
+//   return (
+//     <Layout>
+//       {children}
+//     </Layout>
+//   );
+// }
+
+// export default function AppRoutes() {
+//   return (
+//     <Routes>
+
+//       {/* PUBLIC ROUTES */}
+//       <Route path="/login" element={<Login />} />
+
+//       {/* PROTECTED + LAYOUT WRAPPED ROUTES */}
+
+//       <Route
+//         path="/"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <Dashboard />
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+//       <Route
+//         path="/employees"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <Employees />
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+//       <Route
+//         path="/inventory"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <Inventory />
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+//       <Route
+//         path="/asset-types"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <AssetTypes />
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+//       <Route
+//         path="/employees/:id"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <EmployeeDetails />
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+//       <Route
+//         path="/inventory/:id"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <InventoryDetails />
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+//       <Route
+//         path="/deleted-assets"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <DeletedInventory />
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+//       <Route
+//         path="/asset-requests"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <AssetRequests />
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+//       <Route
+//         path="/users"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <Users />
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+
+
+//       <Route 
+//         path="/inventory/available"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <UnassignedAssets /> 
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+
+//       <Route 
+//         path="/inventory/assigned"
+//         element={
+//           <ProtectedRoute>
+//             <AppLayout>
+//               <AssignedAssets/> 
+//             </AppLayout>
+//           </ProtectedRoute>
+//         }
+//       />
+
+
+
+//       {/* fallback */}
+//       <Route path="*" element={<Navigate to="/" replace />} />
+
+//     </Routes>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
-import ProtectedRoute from "./ProtectedRoute";
 import Employees from "../pages/Employees";
 import Inventory from "../pages/Inventory";
 import AssetTypes from "../pages/AssetTypes";
@@ -10,16 +186,14 @@ import InventoryDetails from "../pages/InventoryDetails";
 import DeletedInventory from "../pages/DeletedInventory";
 import AssetRequests from "../pages/AssetRequests";
 import Users from "../pages/Users";
-import Layout from "../components/layout/layout";
 import UnassignedAssets from "../pages/UnassignedAssets";
 import AssignedAssets from "../pages/AssignedAssets";
 
+import ProtectedRoute from "./ProtectedRoute";
+import Layout from "../components/layout/layout";
+
 function AppLayout({ children }) {
-  return (
-    <Layout>
-      {children}
-    </Layout>
-  );
+  return <Layout>{children}</Layout>;
 }
 
 export default function AppRoutes() {
@@ -29,9 +203,15 @@ export default function AppRoutes() {
       {/* PUBLIC ROUTES */}
       <Route path="/login" element={<Login />} />
 
-      {/* PROTECTED + LAYOUT WRAPPED ROUTES */}
+      {/* ROOT → always go dashboard (ProtectedRoute will handle auth) */}
       <Route
         path="/"
+        element={<Navigate to="/dashboard" replace />}
+      />
+
+      {/* DASHBOARD */}
+      <Route
+        path="/dashboard"
         element={
           <ProtectedRoute>
             <AppLayout>
@@ -41,34 +221,13 @@ export default function AppRoutes() {
         }
       />
 
+      {/* EMPLOYEES */}
       <Route
         path="/employees"
         element={
           <ProtectedRoute>
             <AppLayout>
               <Employees />
-            </AppLayout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/inventory"
-        element={
-          <ProtectedRoute>
-            <AppLayout>
-              <Inventory />
-            </AppLayout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/asset-types"
-        element={
-          <ProtectedRoute>
-            <AppLayout>
-              <AssetTypes />
             </AppLayout>
           </ProtectedRoute>
         }
@@ -85,6 +244,18 @@ export default function AppRoutes() {
         }
       />
 
+      {/* INVENTORY */}
+      <Route
+        path="/inventory"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <Inventory />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/inventory/:id"
         element={
@@ -96,6 +267,19 @@ export default function AppRoutes() {
         }
       />
 
+      {/* ASSET TYPES */}
+      <Route
+        path="/asset-types"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <AssetTypes />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ADMIN / SYSTEM */}
       <Route
         path="/deleted-assets"
         element={
@@ -129,36 +313,33 @@ export default function AppRoutes() {
         }
       />
 
-
-
-      <Route 
+      {/* INVENTORY FILTER VIEWS */}
+      <Route
         path="/inventory/available"
         element={
           <ProtectedRoute>
             <AppLayout>
-              <UnassignedAssets /> 
+              <UnassignedAssets />
             </AppLayout>
           </ProtectedRoute>
         }
       />
 
-
-      <Route 
+      <Route
         path="/inventory/assigned"
         element={
           <ProtectedRoute>
             <AppLayout>
-              <AssignedAssets/> 
+              <AssignedAssets />
             </AppLayout>
           </ProtectedRoute>
         }
       />
 
-
-
-      {/* fallback */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* FALLBACK */}
+      <Route path="*" element={<Navigate to="/dashboard" replace />} />
 
     </Routes>
   );
 }
+

@@ -3,6 +3,8 @@ import { getAvailableInventory, getAvailableInventoryByAssetType } from "../api/
 import { getAssetTypes } from "../api/assetTypeApi";
 import PageHeader from "../components/ui/PageHeader";
 import UnassignedAssetsTable from "../components/unassignedAssets/UnassignedAssetsTable";
+import ExportButton from "../components/ui/ExportButton";
+import { exportAvailableInventory } from "../api/exportApi";
 
 
 export default function UnassignedAssets() {
@@ -23,6 +25,24 @@ export default function UnassignedAssets() {
   };
 
 
+// handle exporting list of unassigned assets to excel 
+const handleExport = async () => {
+  try {
+    const blob = await exportAvailableInventory();
+    //const blob = await exportAvailableInventory(selectedAssetType);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "UnassignedAssets.xlsx";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+
+  } catch (err) {
+    console.error("Export failed:", err);
+  }
+};
 
   useEffect(() => {
 
@@ -36,7 +56,6 @@ export default function UnassignedAssets() {
   const handleAssetTypeChange = async (e) => {
 
     const value = e.target.value;
-
     setSelectedAssetType(value);
 
     if (!value) {
@@ -46,9 +65,7 @@ export default function UnassignedAssets() {
 
     } else {
 
-      const data =
-        await getAvailableInventoryByAssetType(value);
-
+      const data = await getAvailableInventoryByAssetType(value);
       setAssets(data);
 
     }
@@ -57,10 +74,29 @@ export default function UnassignedAssets() {
   return (
     <div className="app-page">
 
-      <PageHeader
-        title="Unassigned Assets"
-        subtitle="Assets currently available for allocation"
-      />
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px"
+        }}
+      >
+        <PageHeader
+          title="Unassigned Assets"
+          subtitle="Assets currently available for allocation"
+        />
+
+        <ExportButton
+          text="Export"
+          onClick={handleExport}
+        />
+      </div>
+
+
+
+
 
       <div className="card">
 

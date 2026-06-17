@@ -7,6 +7,9 @@ import PageHeader from "../components/ui/PageHeader";
 import Loader from "../components/ui/Loader";
 import EmptyState from "../components/ui/EmptyState";
 
+import { exportInventory } from "../api/exportApi";
+import ExportButton from "../components/ui/ExportButton";
+
 export default function Inventory() {
   const [inventory, setInventory] = useState([]);
   const [assetTypes, setAssetTypes] = useState([]);
@@ -30,6 +33,35 @@ export default function Inventory() {
     setLoading(false);
   };
 
+
+  const handleExport = async () => {
+  try {
+
+    const blob = await exportInventory();
+
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "Inventory.xlsx";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    window.URL.revokeObjectURL(url);
+
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+
+
   useEffect(() => {
     loadAll();
   }, []);
@@ -45,18 +77,29 @@ export default function Inventory() {
   return (
     <div className="app-page">
 
-      <PageHeader
-        title="Inventory"
-        subtitle="Manage company assets and devices"
-        actions={
-          <button
-            className="btn btn-primary"
-            onClick={() => setShowForm(!showForm)}
-          >
-            {showForm ? "Cancel" : "Add Asset"}
-          </button>
-        }
-      />
+      <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "20px"
+          }}
+        >
+        <PageHeader
+          title="Inventory"
+          subtitle="Manage company assets and devices"
+          actions={
+            <button
+              className="btn btn-primary"
+              onClick={() => setShowForm(!showForm)}
+            >
+              {showForm ? "Cancel" : "Add Asset"}
+            </button>
+          }
+        />
+        <ExportButton text="Export Inventory" onClick={handleExport}/>
+      </div>
+ 
 
       {/* FILTER BAR */}
       <div className="card" style={{ display: "flex", gap: "24px", alignItems: "flex-center" }}>
