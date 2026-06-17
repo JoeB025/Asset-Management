@@ -11,6 +11,7 @@ import DeletedInventory from "../pages/DeletedInventory";
 import AssetRequests from "../pages/AssetRequests";
 import Users from "../pages/Users";
 import Layout from "../components/layout/layout";
+import UnassignedAssets from "../pages/UnassignedAssets";
 
 function AppLayout({ children }) {
   return (
@@ -126,6 +127,21 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+
+
+      <Route 
+        path="/inventory/available"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <UnassignedAssets /> 
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
+
 
       {/* fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />

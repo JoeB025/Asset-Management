@@ -126,11 +126,16 @@ const assignInventoryItem = (data) => {
 const getAvailableInventory = () => {
   return new Promise((resolve, reject) => {
     const sql = `
-    SELECT * FROM Inventory 
-    WHERE 
-      AssignedEmployeeId IS NULL
-      AND Status != 'Deleted'
-    ORDER BY AssetTag 
+      SELECT
+        I.*,
+        AT.Name AS AssetTypeName
+      FROM Inventory I
+      LEFT JOIN AssetTypes AT
+        ON I.AssetTypeId = AT.Id
+      WHERE
+        I.AssignedEmployeeId IS NULL
+        AND I.Status <> 'Deleted'
+      ORDER BY I.AssetTag 
     `; 
 
     db.all(sql, [], (err, rows) => {

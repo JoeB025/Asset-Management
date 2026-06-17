@@ -60,6 +60,7 @@ export default function Dashboard() {
           color="success"
         />
 
+      <Link to={"/inventory/available"}>
         <StatCard
           title="Unassigned Assets"
           value={stats.unassignedAssets}
@@ -67,7 +68,7 @@ export default function Dashboard() {
           icon="📂"
           color="warning"
         />
-
+      </Link>
 
       <Link to={"/employees"}>
         <StatCard

@@ -69,6 +69,13 @@ export default function Layout({ children }) {
             Users
           </Link>
 
+          <Link 
+            to="/inventory/available"
+            className={`sidebar-link ${isActive("/inventory/available") ? "active" : ""}`}
+          >
+              Unassigned Assets
+          </Link>
+
           <Link
             to="/deleted-assets"
             className={`sidebar-link ${isActive("/deleted-assets") ? "active" : ""}`}
