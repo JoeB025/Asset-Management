@@ -28,8 +28,8 @@ export default function UnassignedAssets() {
 // handle exporting list of unassigned assets to excel 
 const handleExport = async () => {
   try {
-    const blob = await exportAvailableInventory();
-    //const blob = await exportAvailableInventory(selectedAssetType);
+    // const blob = await exportAvailableInventory();
+    const blob = await exportAvailableInventory(selectedAssetType);
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;

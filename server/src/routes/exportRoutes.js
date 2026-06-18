@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const ExcelJS = require("exceljs");
 
 const authMiddleware = require("../middleware/authMiddleware");
 
@@ -8,6 +9,11 @@ const {
   exportAssignedInventory,
   exportAvailableInventory
 } = require("../services/exportService");
+
+const {
+  getAvailableInventory, 
+  getAvailableInventoryByAssetTypeId
+} = require("../services/inventoryService"); 
 
 
 
@@ -51,66 +57,50 @@ router.get("/inventory/assigned", authMiddleware, async (req, res) => {
 
 
 router.get("/inventory/available", authMiddleware, async (req, res) => {
-  const buffer = await exportAvailableInventory();
+  try {
 
-  res.setHeader(
-    "Content-Disposition",
-    "attachment; filename=UnassignedAssets.xlsx"
-  );
+    const { assetTypeId } = req.query;
 
-  res.setHeader(
-    "Content-Type",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-  );
+    let assets;
 
-  res.send(buffer);
+    if (assetTypeId) {
+      assets = await getAvailableInventoryByAssetTypeId(assetTypeId);
+    } else {
+      assets = await getAvailableInventory();
+    }
+
+    // build excel from assets
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet("Unassigned Assets");
+
+    sheet.columns = [
+      { header: "Asset Tag", key: "AssetTag" },
+      { header: "Type", key: "AssetTypeName" },
+      { header: "Manufacturer", key: "Manufacturer" },
+      { header: "Serial Number", key: "SerialNumber" },
+      { header: "Status", key: "Status" }
+    ];
+
+    assets.forEach(a => sheet.addRow(a));
+
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=UnassignedAssets.xlsx"
+    );
+
+    await workbook.xlsx.write(res);
+    res.end();
+
+  } catch (err) {
+    // console.error(err); 
+    res.status(500).json({ message: err.message });
+  }
 });
-
-
-// router.get("/inventory/available", authMiddleware, async (req, res) => {
-//   try {
-
-//     const { assetTypeId } = req.query;
-
-//     let assets;
-
-//     if (assetTypeId) {
-//       assets = await getAvailableInventoryByAssetTypeId(assetTypeId);
-//     } else {
-//       assets = await getAvailableInventory();
-//     }
-
-//     // build excel from assets
-//     const workbook = new ExcelJS.Workbook();
-//     const sheet = workbook.addWorksheet("Unassigned Assets");
-
-//     sheet.columns = [
-//       { header: "Asset Tag", key: "AssetTag" },
-//       { header: "Type", key: "AssetTypeName" },
-//       { header: "Manufacturer", key: "Manufacturer" },
-//       { header: "Serial Number", key: "SerialNumber" },
-//       { header: "Status", key: "Status" }
-//     ];
-
-//     assets.forEach(a => sheet.addRow(a));
-
-//     res.setHeader(
-//       "Content-Type",
-//       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-//     );
-
-//     res.setHeader(
-//       "Content-Disposition",
-//       "attachment; filename=UnassignedAssets.xlsx"
-//     );
-
-//     await workbook.xlsx.write(res);
-//     res.end();
-
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
 
 
 

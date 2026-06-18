@@ -140,7 +140,7 @@ const getAvailableInventory = () => {
 
     db.all(sql, [], (err, rows) => {
       if(err) return reject(err)       
-        console.log(rows); 
+        // console.log(rows); 
       resolve(rows); 
     });
   });
