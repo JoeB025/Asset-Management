@@ -1,17 +1,39 @@
+// export const jobTitles = [
+//   "Account Manager", 
+//   "Banking and Payroll Officer",
+//   "Central Operations Team Leader",
+//   "Director",
+//   "HR Manager",
+//   "IT Support",
+//   "New Business Administrator",
+//   "Office Administrator",
+//   "Pension Administrator",
+//   "Property Technical Executive",
+//   "Team Leader",
+//   "Technical Manager",
+//   "Software Architect"  
+// ];
+
+
 export const jobTitles = [
-  "Account Manager", 
-  "Banking and Payroll Officer",
-  "Central Operations Team Leader",
-  "Client Services Consultant",
-  "Compliance Manager",
+  "Accountant",
+  "Administrative Assistant",
+  "Cleaner",
+  "Credit Controller",
+  "Customer Service Representative",
   "Director",
+  "Electrician",
+  "HR Advisor",
   "HR Manager",
-  "IT Support",
-  "New Business Administrator",
+  "IT Support Specialist",
+  "Junior Accountant",
   "Office Administrator",
-  "Pension Administrator",
-  "Property Technical Executive",
+  "Operations Supervisor",
+  "Project Manager",
+  "Receptionist",
+  "Sales Administrator",
+  "Sales Representative",
+  "Software Developer",
   "Team Leader",
-  "Technical Manager",
-  "Software Architect"  
+  "Technical Specialist"
 ];

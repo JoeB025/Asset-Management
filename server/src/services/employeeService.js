@@ -11,7 +11,7 @@ const getAllEmployees = () => {
       SELECT *
       FROM Employees
       WHERE IsActive = 1
-      ORDER BY LastName, FirstName
+      ORDER BY FirstName, LastName
     `;
 
     db.all(sql, [], (err, rows) => {

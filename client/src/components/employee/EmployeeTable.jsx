@@ -2,7 +2,7 @@ import DataTable from "../ui/DataTable";
 
 export default function EmployeeTable({ employees, onRefresh }) {
   const columns = [
-    { key: "id", label: "Id" },
+    // { key: "id", label: "Id" },
     { key: "name", label: "Name" },
     { key: "job", label: "Job Title" },
     { key: "team", label: "Team" },
@@ -19,7 +19,7 @@ export default function EmployeeTable({ employees, onRefresh }) {
       renderRow={(employee) => (
         <tr key={employee.Id}>
 
-          <td>{employee.Id}</td>
+          {/* <td>{employee.Id}</td> */}
 
           <td>
             {employee.FirstName} {employee.LastName}

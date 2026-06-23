@@ -38,31 +38,32 @@ Email,
 IsActive)
 VALUES
 
-('Administration', 'Account', 'Office Administrator', 'Administration', 0, 'admin@toontown.com', 1),
-('Bugs', 'Bunny', 'Account', 'Administration', 0, 'bugs-bunny@toontown.com', 1),
+('Admin', 'Account', 'Office Administrator', 'Administration', 0, 'admin@toontown.com', 1),
+('Bugs', 'Bunny', 'Accountant', 'Finance', 0, 'bugs-bunny@toontown.com', 1),
 ('Daffy', 'Duck', 'Office Administrator', 'Administration', 0, 'daffy-duck@toontown.com', 1),
 ('Lola', 'Bunny', 'Director', 'Management', 0, 'lola-bunny@toontown.com', 1),
 ('Porky', 'Pig', 'Director', 'Management', 0, 'porky-pig@toontown.com', 1),
 ('Elmer', 'Fudd', 'HR Manager', 'Human Resources', 0, 'elmer-fudd@toontown.com', 1),
-('Yosemite', 'Sam', 'Central Operations Team Leader', 'Finance', 0, 'yosemite-sam@toontown.com', 1),
-('Tweety', 'Bird', 'New Business Administrator', 'New Business', 0, 'tweety-bird@toontown.com', 1),
-('Sylvester', 'Cat', 'Client Services Consultant', 'Pensions', 0, 'sylvester-cat@toontown.com', 1),
-('Foghorn', 'Leghorn', 'Banking and Payroll Officer', 'Finance', 1, 'foghorn-leghorn@toontown.com', 1),
-('Marvin', 'Martian', 'Team Leader', 'Pensions', 0, 'marvin-martian@toontown.com', 1),
-('Wile', 'Coyote', 'Compliance Manager', 'Compliance', 0, 'wile-coyote@toontown.com', 1),
-('Road', 'Runner', 'Technical Manager', 'Management', 1, 'road-runner@toontown.com', 1),
-('Speedy', 'Gonzales', 'Client Services Consultant', 'Pensions', 1, 'speedy-gonzales@toontown.com', 1),
-('Taz', 'Devil', 'Client Services Consultant', 'Management', 1, 'taz-devil@toontown.com', 1),
-('Granny', 'Granny', 'Account Manager', 'Pensions', 0, 'granny-granny@toontown.com', 1),
-('Penelope', 'Pussycat', 'Pension Administrator', 'Pensions', 0, 'penelope-pussycat@toontown.com', 1),
-('Gossamer', 'Monster', 'Pension Administrator', 'Pensions', 0, 'gossamer-monster@toontown.com', 1),
-('Hector', 'Bulldog', 'Pension Administrator', 'Pensions', 0, 'hector-bulldog@toontown.com', 1),
-('Barnyard', 'Dawg', 'Pension Administrator', 'Pensions', 0, 'barnyard-dawg@toontown.com', 1),
-('Charlie', 'Dog', 'Pension Administrator', 'Pensions', 0, 'charlie-dog@toontown.com', 1),
-('Sam', 'Sheepdog', 'New Business Administrator', 'New Business', 0, 'sam-sheepdog@toontown.com', 1),
-('Michigan', 'J.Frog', 'Software Architect', 'IT', 1, 'michigan-j.frog@toontown.com', 1),
-('Roger', 'Rabbit', 'Account Manager', 'Pensions', 0, 'roger-rabbit@toontown.com', 1),
-('Jessica', 'Rabbit', 'New Business Administrator', 'New Business', 0, 'jessica-rabbit@toontown.com', 1);
+('Yosemite', 'Sam', 'Operations Supervisor', 'Operations', 0, 'yosemite-sam@toontown.com', 1),
+('Tweety', 'Bird', 'Sales Administrator', 'Sales', 0, 'tweety-bird@toontown.com', 1),
+('Sylvester', 'Cat', 'Customer Service Representative', 'Customer Service', 0, 'sylvester-cat@toontown.com', 1),
+('Foghorn', 'Leghorn', 'Junior Accountant', 'Finance', 1, 'foghorn-leghorn@toontown.com', 1),
+('Marvin', 'Martian', 'Team Leader', 'Management', 0, 'marvin-martian@toontown.com', 1),
+('Wile', 'Coyote', 'Technical Specialist', 'IT', 0, 'wile-coyote@toontown.com', 1),
+('Road', 'Runner', 'Technical Specialist', 'IT', 1, 'road-runner@toontown.com', 1),
+('Speedy', 'Gonzales', 'Customer Service Representative', 'Customer Service', 1, 'speedy-gonzales@toontown.com', 1),
+('Taz', 'Devil', 'Team Leader', 'Management', 1, 'taz-devil@toontown.com', 1),
+('Granny', 'Granny', 'Account Manager', 'Sales', 0, 'granny-granny@toontown.com', 1),
+('Penelope', 'Pussycat', 'Administrative Assistant', 'Administration', 0, 'penelope-pussycat@toontown.com', 1),
+('Gossamer', 'Monster', 'Administrative Assistant', 'Administration', 0, 'gossamer-monster@toontown.com', 1),
+('Hector', 'Bulldog', 'Administrative Assistant', 'Administration', 0, 'hector-bulldog@toontown.com', 1),
+('Barnyard', 'Dawg', 'Administrative Assistant', 'Administration', 0, 'barnyard-dawg@toontown.com', 1),
+('Charlie', 'Dog', 'Administrative Assistant', 'Administration', 0, 'charlie-dog@toontown.com', 1),
+('Sam', 'Sheepdog', 'Sales Administrator', 'Sales', 0, 'sam-sheepdog@toontown.com', 1),
+('Michigan', 'J.Frog', 'Software Developer', 'IT', 1, 'michigan-j.frog@toontown.com', 1),
+('Roger', 'Rabbit', 'Account Manager', 'Sales', 0, 'roger-rabbit@toontown.com', 1),
+('Jessica', 'Rabbit', 'Sales Administrator', 'Sales', 0, 'jessica-rabbit@toontown.com', 1);
+
 
 -- Inventory
 INSERT INTO Inventory (
@@ -153,9 +154,14 @@ VALUES
 
 -- Keyboards
 ('KEY-001', 6, 'Logitech', 'LG-KBD-001A', 'Active', NULL, 'New', 'Office', 'Seed keyboard', datetime('now')),
+('Key-002', 6, 'Logitech', 'LG-KBD-001B', 'Active', NULL, 'New', 'Office', 'Seed keyboard', datetime('now')),
+('KEY-003', 6, 'Apple', 'AP-KBD-001A', 'Active', NULL, 'New', 'Office', 'Seed keyboard', datetime('now')), 
+('Key-004', 6, 'Dell', 'DE-KBD-001A', 'Active', NULL, 'New', 'Office', 'Seed keyboard', datetime('now')), 
+
 
 -- Phones
 ('PHN-001', 7, 'Apple', 'APL-IP-001X', 'Active', NULL, 'New', 'Office', 'Seed phone', datetime('now')),
+('PHN-002', 7, 'Apple', 'APL-PL-002X', 'Active', Null, 'New', 'Office', 'Seed phone', datetime('now')), 
 
 -- Cables
 ('HDM-001', 9, 'Generic', 'GEN-HDM-001', 'Active', NULL, 'New', 'Office', 'Seed HDMI cable', datetime('now'));
@@ -170,7 +176,7 @@ INSERT INTO LoginUsers
     IsActive
 )
 VALUES
-(1, 'admin@toontown.com', 'admin', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Admin', 1),
+(1, 'admin@toontown.com', 'Admin Account', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Admin', 1),
 (2, 'bugs-bunny@toontown.com', 'Bugs Bunny', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Admin', 1),
 (24, 'rodger-rabbit@toontown.com', 'Rodger Rabbit', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Compliance', 1),
 (25, 'jessica-rabbit@toontown.com', 'Jessica Rabbit', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'The Master', 1),
