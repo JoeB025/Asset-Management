@@ -1,31 +1,31 @@
 :root {
-  /* BRAND */
-  --primary: #a4286a;
-  --primary-hover: #c7488c;
-  --primary-dark: #5f4977;
+  /* BRAND (Wimbledon green palette) */
+  --primary: #007c4f;
+  --primary-hover: #009e63;
+  --primary-dark: #004d30;
 
   /* BACKGROUND */
-  --bg: #f7f5f9;
+  --bg: #f4f7f5;
   --surface: #ffffff;
-  --surface-alt: #f2d4e6;
+  --surface-alt: #e6f0ea;
 
   /* SIDEBAR */
-  --sidebar: #5f4977;
+  --sidebar: #004d30;
   --sidebar-hover: rgba(255, 255, 255, 0.12);
   --sidebar-active: rgba(255, 255, 255, 0.18);
 
   /* TEXT */
-  --text-primary: #555454;
-  --text-secondary: #999898;
+  --text-primary: #2f3b33;
+  --text-secondary: #6b7a72;
   --text-on-dark: #ffffff;
 
   /* BORDER */
-  --border: #d4cede;
+  --border: #c9d6cf;
 
   /* STATUS */
-  --success: #28a745;
-  --warning: #ffc107;
-  --danger: #dc3545;
+  --success: #1f8a5b;
+  --warning: #c9a227;
+  --danger: #c94a4a;
 
   /* UI */
   --radius-sm: 6px;
