@@ -104,3 +104,16 @@ InventorySystem
     │
     ├── app.js
     └── server.js# Asset-Management
+
+
+
+
+-- How to seed 
+    - Go to server/src/database then run 'node seed.js'
+
+-- How to run the server 
+    - Got to server/src then run 'node server.js' 
+
+-- How to run the app 
+    - Go to client directory and run 'npm run dev'
+
