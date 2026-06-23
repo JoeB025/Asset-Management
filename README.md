@@ -1,3 +1,11 @@
+# 🗂️ Asset Management System
+
+A full-stack inventory and asset management system built to track company equipment, employees, and asset requests. The system supports asset allocation, request workflows, and inventory tracking with authentication and role-based access.
+
+---
+
+
+## 📁 Project Structure
 InventorySystem
 │
 ├── Client 
@@ -107,6 +115,11 @@ InventorySystem
 
 
 
+## 📁 Getting Started 
+
+-- If the repo is cloned, run npm install to download all dependancies 
+    -- cd server/src then run 'npm install'
+    -- cd client then run 'npm install'
 
 -- How to seed 
     - Go to server/src/database then run 'node seed.js'
@@ -117,3 +130,24 @@ InventorySystem
 -- How to run the app 
     - Go to client directory and run 'npm run dev'
 
+
+
+
+
+## Tech Stack
+
+### Frontend (Client)
+- **React (Vite)** – Fast modern frontend framework
+- **JavaScript (ES6+)**
+- **Axios** – API communication
+- **React Router** – Routing and navigation
+- **Context API** – Global authentication state management
+- **CSS Variables / Custom Theme System** – Centralised styling system
+
+### Backend (Server)
+- **Node.js**
+- **Express.js** – REST API framework
+- **SQLite** – Lightweight relational database
+- **JWT (JSON Web Tokens)** – Authentication
+- **bcryptjs** – Password hashing and security
+- **CORS** – Cross-origin request handling
