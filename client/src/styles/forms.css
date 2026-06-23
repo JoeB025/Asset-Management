@@ -46,3 +46,26 @@
   justify-content: flex-end;
   margin-top: 8px;
 }
+
+
+.reassign-form {
+  width: 350px;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+
+.reassign-form select {
+  width: 100%;
+  padding: 8px;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  text-align: end;
+  align-items: flex-end;
+  justify-content: flex-end;
+}

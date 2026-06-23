@@ -98,8 +98,7 @@ const handleDelete = async () => {
       </p>
 
       <hr />
-
-        <button onClick={handleDelete}>
+        <button className="btn btn-danger" onClick={handleDelete} type="button">
           Delete Asset
         </button>
       <hr />
