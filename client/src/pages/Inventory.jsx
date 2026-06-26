@@ -61,7 +61,6 @@ export default function Inventory() {
 
 
 
-
   useEffect(() => {
     loadAll();
   }, []);
@@ -164,7 +163,11 @@ export default function Inventory() {
                       : "Storage"}
                   </td>
                   <td>
-                    <Link to={`/inventory/${item.Id}`}>View</Link>
+                    <Link to={`/inventory/${item.Id}`}>
+                      <button className="btn btn-secondary">
+                        View 
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

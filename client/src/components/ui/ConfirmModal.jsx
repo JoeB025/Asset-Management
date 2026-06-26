@@ -20,21 +20,12 @@ export default function ConfirmModal({
       </p>
 
       <div className="form-actions">
-
-        <button
-          className="btn btn-secondary"
-          onClick={onCancel}
-        >
+        <button className="btn btn-secondary" onClick={onCancel}>
           Cancel
         </button>
-
-        <button
-          className="btn btn-danger"
-          onClick={onConfirm}
-        >
+        <button className="btn btn-danger" onClick={onConfirm}>
           Confirm
         </button>
-
       </div>
 
     </Modal>

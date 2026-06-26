@@ -28,7 +28,7 @@ const getAllUsers = () => {
 // create user 
 const createUser = (data) => {
   return new Promise((resolve, reject) => {
-    console.log("CREATE USER PAYLOAD:", data);
+    // console.log("CREATE USER PAYLOAD:", data);
 
     const sql = `
       INSERT INTO LoginUsers

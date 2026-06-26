@@ -16,18 +16,23 @@ export default function ResetPasswordForm({ userId, onClose }) {
       onClose();
     };
 
+   
   return (
 
-    <form onSubmit={handleSubmit}>
 
+    <form onSubmit={handleSubmit}>
       <input
         type="password"
         placeholder="New Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-
-      <button type="submit">Save</button>
+      <button 
+        className="btn btn-primary"
+        style={{ marginLeft: "10px"}}
+        type="submit">
+          Save
+      </button>
     </form>
 
   );

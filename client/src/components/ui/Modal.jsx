@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "../../styles/modal.css"; 
 
 export default function Modal({ isOpen, title, children, onClose }) {
 
@@ -20,7 +21,6 @@ export default function Modal({ isOpen, title, children, onClose }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-
       <div
         className="modal"
         onClick={(e) => e.stopPropagation()}
@@ -36,13 +36,10 @@ export default function Modal({ isOpen, title, children, onClose }) {
             ✕
           </button>
         </div>
-
         <div className="modal-body">
           {children}
         </div>
-
       </div>
-
     </div>
   );
 }
