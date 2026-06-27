@@ -5,6 +5,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 450px;
 }
 
 .data-table {

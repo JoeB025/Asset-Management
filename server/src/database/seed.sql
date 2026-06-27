@@ -176,11 +176,11 @@ INSERT INTO LoginUsers
     IsActive
 )
 VALUES
-(1, 'admin@toontown.com', 'Admin Account', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Admin', 1),
-(2, 'bugs-bunny@toontown.com', 'Bugs Bunny', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Admin', 1),
-(24, 'rodger-rabbit@toontown.com', 'Rodger Rabbit', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Compliance', 1),
-(25, 'jessica-rabbit@toontown.com', 'Jessica Rabbit', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'The Master', 1),
-(3, 'daffy-duck@toontown.com', 'Daffy Duck', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Human Resources', 1);
+(1, 'admin@toontown.com', 'Admin Account', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Office Administrator', 1),
+(2, 'bugs-bunny@toontown.com', 'Bugs Bunny', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Accountant', 1),
+(24, 'rodger-rabbit@toontown.com', 'Rodger Rabbit', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Account Manager', 1),
+(25, 'jessica-rabbit@toontown.com', 'Jessica Rabbit', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Sales Administrator', 1),
+(3, 'daffy-duck@toontown.com', 'Daffy Duck', '$2b$10$4qMYYYsWPySxN8NB0TUzwupE5rtpJNTcMn4LuulM9RUWut132rzaS', 'Office Administrator', 1);
 
 
 

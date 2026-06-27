@@ -114,14 +114,10 @@ export default function Dashboard() {
         <p className="page-subtitle"> </p>
           <ul>
             <li>Turn this section into a live feed and show recent additions i.e new employees added or something yada yada yada</li>
-            <li>Add links to the dashboard to the relevant pages.</li>
-            <li>Add in a page to show all unassigned assets and a link to it</li>
-            <li>Add in a page to all the assigned Assets</li>
             <li>Add in something to say ... We do not have enough of x asset?</li>
-            <li>Fix the Logout text - Should show users name.</li>
             <li>Create a page for the users so email addresses / names can be edited</li>
             <li>Add in a branding logo somewhere</li>
-            <li>Add in downloads so a user can download a form or list - could come in handy to take to a stock room / inventory cupboard or something</li>
+            <li>Make sure the Excel downloads work when the list is filtered</li>
           </ul> 
       </div>
 

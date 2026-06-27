@@ -72,7 +72,7 @@ export default function Layout({ children }) {
 
           <Link 
             to="/inventory/assigned"
-            className={`sidebar-link ${isActive("/users") ? "active" : ""}`}
+            className={`sidebar-link ${isActive("/inventory/assigned") ? "active" : ""}`}
           >
             Assigned Assets 
           </Link>
